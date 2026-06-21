@@ -24,6 +24,7 @@ const IC = {
   link:'<path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/>',
   crown:'<path d="M3 8l4 4 5-7 5 7 4-4v9H3z"/>',
   grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  fire:'<path d="M12 2c1 4 4 5 4 9a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 8 13 8 15a4 4 0 0 0 8 0c0-4-3-5-4-13z"/>',
 };
 const svg=(name,sw)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round">${IC[name]||''}</svg>`;
 
@@ -251,11 +252,11 @@ function paintCompare(){
 
 /* ============ APP ROUTER ============ */
 let CSV_STATE=null,CHARTS=[];
-const NAV=[['optimize','Optimize',svg('optimize'),'tools'],['research','Research',svg('research'),'tools'],['channelopt','Channel Optimization',svg('check'),'tools'],['money','Money Calculator',svg('money'),'tools'],
-  ['audit','Audit',svg('audit'),'your data'],['urlaudit','Audit by URL',svg('link'),'your data'],
+const NAV=[['optimize','Optimize',svg('optimize'),'tools'],['research','Research',svg('research'),'tools'],['channelopt','Channel Optimization',svg('check'),'tools'],['money','Money Calculator',svg('money'),'tools'],['worth','Watch-time → Money',svg('money'),'tools'],
+  ['audit','Audit',svg('audit'),'your data'],['urlaudit','Audit by URL',svg('link'),'your data'],['roast','Roast My Channel',svg('fire'),'your data'],
   ['creators','Top Creators',svg('crown'),'explore'],['niches','By Niche',svg('grid'),'explore'],
   ['compare','Compare',svg('compare'),'live'],['settings','Settings',svg('settings'),'']];
-const ATITLE={optimize:'Optimize <small>pre-publish · no data</small>',research:'Research <small>keywords &amp; tags</small>',channelopt:'Channel Optimization <small>scored checklist</small>',money:'Money Calculator <small>earnings estimator</small>',audit:'Audit <small>your Studio export</small>',urlaudit:'Audit by URL <small>public data · needs key</small>',creators:'Top Creators <small>by subscribers</small>',niches:'Top Creators by Niche',compare:'Compare <small>live mode</small>',settings:'Settings'};
+const ATITLE={optimize:'Optimize <small>pre-publish · no data</small>',research:'Research <small>keywords &amp; tags</small>',channelopt:'Channel Optimization <small>scored checklist</small>',money:'Money Calculator <small>earnings estimator</small>',worth:'Watch-time → Money <small>what retention is worth</small>',audit:'Audit <small>your Studio export</small>',urlaudit:'Audit by URL <small>public data · needs key</small>',roast:'Roast My Channel <small>blunt audit</small>',creators:'Top Creators <small>by subscribers</small>',niches:'Top Creators by Niche',compare:'Compare <small>live mode</small>',settings:'Settings'};
 
 function paintRail(active){
   const r=$('#rnav');let html='',lastGrp=null;
@@ -270,7 +271,7 @@ function route(name){
   destroyCharts();paintRail(name);
   const t=$('#appTitle');if(t)t.innerHTML=ATITLE[name]||name;
   const v=$('#appView');if(!v)return;v.className='app-view fadein';void v.offsetWidth;v.className='app-view';
-  try{({optimize:vOptimize,research:vResearch,channelopt:vChannelOpt,money:vMoney,audit:vAudit,urlaudit:vUrlAudit,creators:vCreators,niches:vNiches,compare:vCompare,settings:vSettings}[name]||vOptimize)();}
+  try{({optimize:vOptimize,research:vResearch,channelopt:vChannelOpt,money:vMoney,worth:vWorth,audit:vAudit,urlaudit:vUrlAudit,roast:vRoast,creators:vCreators,niches:vNiches,compare:vCompare,settings:vSettings}[name]||vOptimize)();}
   catch(e){v.innerHTML=`<div class="panel"><div class="empty">Something went wrong rendering this view. <br><span class="dim">${esc(e.message)}</span></div></div>`;console.error(e);}
 }
 window.openApp=k=>{$('#landing').classList.add('off');$('#app').classList.add('on');window.scrollTo(0,0);route(k||'optimize');};
@@ -427,13 +428,13 @@ function vAudit(){
 }
 function mcard(l,n,[c,d]){return `<div class="mcard"><div class="l">${l}</div><div class="n">${n}</div><div class="d ${c}">${d}</div></div>`;}
 window.resetCSV=()=>{CSV_STATE=null;route('audit');};
-function loadCSV(file){
+function loadCSV(file,dest){
   if(!window.Papa){$('#appView').insertAdjacentHTML('beforeend','<div class="panel rose"><div class="empty rose">CSV parser failed to load. Check that vendor/papaparse.min.js is present.</div></div>');return;}
   Papa.parse(file,{header:true,skipEmptyLines:true,complete:res=>{
     const fields=res.meta.fields||Object.keys(res.data[0]||{});
     const r=auditCSV(res.data,fields);
     if(r.error){$('#appView').insertAdjacentHTML('beforeend',`<div class="panel" style="border-color:var(--rose)"><div class="empty" style="color:var(--rose)">${r.error}</div></div>`);return;}
-    r.source='csv';CSV_STATE=r;route('audit');
+    r.source='csv';CSV_STATE=r;route(dest||'audit');
   },error:()=>{$('#appView').insertAdjacentHTML('beforeend','<div class="panel"><div class="empty rose">Couldn\'t read that file.</div></div>');}});
 }
 
@@ -626,6 +627,93 @@ function vUrlAudit(){
   };
   $('#urlGo').onclick=go;
   $('#urlIn').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+}
+
+/* ---------- WORTH: WATCH-TIME → MONEY ---------- */
+function vWorth(){
+  $('#appView').innerHTML=`
+  <div class="vhead"><h1>Watch-time → money translator</h1><p>Retention feels abstract. This turns it into dollars: see what a few points of CTR or watch-time are actually worth on your traffic.</p></div>
+  <div class="panel"><div class="grid2">
+    <div><label class="fld">Monthly impressions <span class="dim">(thumbnail shown)</span></label><input class="inp" id="wImp" type="text" value="1000000" inputmode="numeric"></div>
+    <div><label class="fld">Niche</label><select class="inp" id="wNiche">${Object.keys(RPM_NICHE).map(k=>`<option value="${RPM_NICHE[k]}">${k} (~$${RPM_NICHE[k]} RPM)</option>`).join('')}</select></div>
+    <div><label class="fld">Audience geography</label><select class="inp" id="wGeo">${Object.keys(GEO_MULT).map(k=>`<option value="${GEO_MULT[k]}">${k}</option>`).join('')}</select></div>
+    <div><label class="fld">Monetized views <span class="dim">(% with ads)</span></label><input class="inp" id="wPct" type="text" value="55" inputmode="numeric"></div>
+  </div></div>
+  <div class="panel"><div class="panel-h">${svg('optimize')}<h3>Your current levers</h3></div><div class="panel-sub">Set these to your real numbers. The two biggest multipliers on revenue: how many people click (CTR) and how long they stay (more watch-time = more ad slots).</div>
+  <div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span class="muted">Click-through rate</span><span class="mono mint" id="wCtrV">5%</span></div><input type="range" id="wCtr" min="1" max="15" value="5" step="0.5" style="width:100%;accent-color:var(--mint)"></div>
+  <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span class="muted">Avg view duration (min)</span><span class="mono mint" id="wRetV">4 min</span></div><input type="range" id="wRet" min="1" max="20" value="4" step="0.5" style="width:100%;accent-color:var(--mint)"></div></div>
+  <div class="panel"><div class="panel-h">${svg('money')}<h3>What you're earning now</h3></div>
+  <div class="grid2"><div class="mcard"><div class="l">Monthly views (from CTR)</div><div class="n" id="wViews">—</div></div><div class="mcard" style="border-color:var(--mint)"><div class="l">Monthly revenue</div><div class="n mint" id="wRev">—</div></div></div></div>
+  <div class="panel"><div class="panel-h">${svg('fire')}<h3>What improvements are worth</h3></div><div class="panel-sub">Holding everything else equal — the annual upside of each move.</div><div id="wDeltas"></div></div>
+  <div class="panel"><div class="panel-sub" style="margin:0">Watch-time affects revenue because longer videos can run mid-roll ads. This models that gently — real ad load varies. Numbers are directional, meant to show <i>relative</i> leverage, not a payout guarantee.</div></div>`;
+  const $w=id=>document.getElementById(id);
+  const adFactor=mins=>Math.min(1.8,0.85+Math.max(0,mins-4)*0.06+(mins>=8?0.15:0));
+  const calc=()=>{
+    const imp=+($w('wImp').value.replace(/[^\d]/g,''))||0;
+    const rpm=+$w('wNiche').value,geo=+$w('wGeo').value,pct=Math.min(100,Math.max(0,+$w('wPct').value||0));
+    const ctr=+$w('wCtr').value,ret=+$w('wRet').value;
+    $w('wCtrV').textContent=ctr+'%';$w('wRetV').textContent=ret+' min';
+    const rev=(c,r)=>{const views=imp*(c/100);return{views,rev:calcMoney(views,rpm*adFactor(r),geo,pct).mid};};
+    const cur=rev(ctr,ret);
+    $w('wViews').textContent=fmt(cur.views);$w('wRev').textContent='$'+fmt(cur.rev);
+    const sc=[['CTR +1 point','one more click per 100 impressions',rev(ctr+1,ret).rev-cur.rev],
+      ['CTR +2 points','a meaningfully better thumbnail + title',rev(ctr+2,ret).rev-cur.rev],
+      ['+2 min watch-time','beat the cliff, hold viewers longer',rev(ctr,ret+2).rev-cur.rev],
+      ['Both: +1 CTR & +2 min','compounding the two levers',rev(ctr+1,ret+2).rev-cur.rev]];
+    $w('wDeltas').innerHTML=sc.map(([t,d,delta])=>`<div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>${t}</b><span>${d}</span></div><div style="text-align:right;flex-shrink:0"><div class="mono mint" style="font-size:16px;font-weight:600">+$${fmt(Math.max(0,delta)*12)}</div><div class="dim" style="font-size:11px">per year</div></div></div>`).join('');
+  };
+  ['wImp','wNiche','wGeo','wPct','wCtr','wRet'].forEach(id=>$w(id).addEventListener('input',calc));calc();
+}
+
+/* ---------- ROAST MY CHANNEL ---------- */
+function roastLines(s,vids){
+  const L=[];
+  if(s.avgCtr!=null){
+    if(s.avgCtr<NICHE.ctr.poor)L.push(['fail','Your thumbnails',`A ${s.avgCtr.toFixed(1)}% CTR means ~${Math.round(100-s.avgCtr)} of every 100 people who saw your video scrolled right past. Your thumbnails are doing volunteer work.`]);
+    else if(s.avgCtr<NICHE.ctr.good)L.push(['warn','Your thumbnails',`${s.avgCtr.toFixed(1)}% CTR is... fine. "Fine" is what you call a restaurant you'll never revisit. The good ones in your niche clear 6%.`]);
+    else L.push(['pass','Your thumbnails',`${s.avgCtr.toFixed(1)}% CTR — okay, the thumbnails actually work. Credit where it's due.`]);
+  }
+  if(s.avgRet!=null){
+    if(s.avgRet<NICHE.retention.poor)L.push(['fail','Retention',`${Math.round(s.avgRet)}% average retention. More than half your audience leaves before the point. The 0:18 cliff isn't a cliff for you — it's a water slide.`]);
+    else if(s.avgRet<NICHE.retention.good)L.push(['warn','Retention',`${Math.round(s.avgRet)}% retention. People stay, then quietly leave like a party that peaked early. Tighten the intros.`]);
+    else L.push(['pass','Retention',`${Math.round(s.avgRet)}% retention is genuinely strong. Whatever you do in the first 30 seconds — keep doing it.`]);
+  }
+  const top=[...vids].sort((a,b)=>b.views-a.views);const totalV=s.totalViews||1;const share=top[0]?top[0].views/totalV:0;
+  if(share>0.5)L.push(['warn','One-hit wonder',`One video is ${Math.round(share*100)}% of your entire view count. That's not a channel, it's one video with ${s.count-1} witnesses.`]);
+  const decay=vids.filter(v=>v.tag==='decaying').length;
+  if(decay>s.count*0.5)L.push(['warn','Aging badly',`${decay} of your ${s.count} videos are losing steam. Your back catalog is aging like milk, not wine.`]);
+  if(s.gems>0)L.push(['pass','Hidden gems',`You've got ${s.gems} video${s.gems>1?'s':''} with strong retention but low views — quietly excellent, criminally under-promoted. Re-share ${s.gems>1?'them':'it'} before making anything new.`]);
+  const avgTitle=Math.round(vids.reduce((a,v)=>a+scoreTitle(v.title).score,0)/vids.length);
+  if(avgTitle<50)L.push(['fail','Your titles',`Average title score ${avgTitle}/100. Your titles read like filenames. "kubernetes-final-v2-REAL" energy.`]);
+  else if(avgTitle<70)L.push(['warn','Your titles',`Titles average ${avgTitle}/100 — serviceable, forgettable. Nobody ever rage-clicked a serviceable title.`]);
+  else L.push(['pass','Your titles',`Titles average ${avgTitle}/100. Crisp. You think before you publish — rare.`]);
+  return L;
+}
+function vRoast(){
+  if(!CSV_STATE){
+    $('#appView').innerHTML=`
+    <div class="vhead"><h1>Roast my channel 🔥</h1><p>Same data as the audit — zero diplomacy. Drop your Studio CSV and let's have an honest conversation about your numbers.</p></div>
+    <div class="drop" id="rDrop">${svg('fire',1.5)}<h3>Drop your Studio export (.csv)</h3><p>Roast computed from your real metrics, in your browser</p><span class="loc">${svg('shield',2)} nothing uploaded · feelings not guaranteed</span></div>
+    <input type="file" id="rFile" accept=".csv" class="hide">
+    <div class="panel" style="margin-top:18px"><div class="panel-sub" style="margin:0">Loaded a file in the Audit tab already? It carries over — just revisit this page. The roast is affectionate. Mostly.</div></div>`;
+    const dz=$('#rDrop'),fi=$('#rFile');
+    dz.onclick=()=>fi.click();
+    dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};dz.ondragleave=()=>dz.classList.remove('over');
+    dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files[0])loadCSV(e.dataTransfer.files[0],'roast');};
+    fi.onchange=e=>{if(e.target.files[0])loadCSV(e.target.files[0],'roast');};
+    return;
+  }
+  if(CSV_STATE.source==='url'){
+    $('#appView').innerHTML=`<div class="vhead"><h1>Roast my channel 🔥</h1></div><div class="panel"><div class="empty">The roast needs CTR & retention, which only the CSV export has. The URL audit only sees public data. <br><br>Load your Studio CSV here to get roasted properly.</div><div style="text-align:center"><button class="appbtn gho" onclick="resetCSV()">Load a CSV</button></div></div>`;
+    return;
+  }
+  const {stats:s,vids}=CSV_STATE;const lines=roastLines(s,vids);
+  const fails=lines.filter(l=>l[0]==='fail').length,passes=lines.filter(l=>l[0]==='pass').length;
+  const verdict=fails>=3?['Brutal','var(--rose)','We need to talk. Sit down.']:fails>=1?['Tough love','var(--amber)','Some wins, some war crimes. Let\'s fix it.']:['Respectable','var(--mint)','Annoyingly competent. Fine — you\'re good.'];
+  $('#appView').innerHTML=`
+  <div class="vhead" style="display:flex;justify-content:space-between;align-items:flex-end"><div><h1>The verdict: <span style="color:${verdict[1]}">${verdict[0]}</span> 🔥</h1><p>${verdict[2]} · ${s.count} videos analyzed</p></div><button class="appbtn gho" onclick="resetCSV()">Different file</button></div>
+  <div class="panel">${lines.map(([c,h,d])=>`<div class="row"><div class="ic ${c}">${svg(c==='pass'?'check':c==='warn'?'warn':'x',1.8)}</div><div class="body"><b>${h}</b><span style="color:var(--txt-2)">${d}</span></div></div>`).join('')}</div>
+  <div class="panel"><div class="panel-sub" style="margin:0">${passes>fails?'Beneath the roast, you\'re doing more right than wrong — the fixes are tuning, not rebuilding.':'Don\'t take it personally — every line is a lever you control. Fix the reds first; they cost the most.'} Want the polite version? <b style="color:var(--mint);cursor:pointer" onclick="route('audit')">Open Audit</b>.</div></div>`;
 }
 
 /* ---------- COMPARE (Tier 3) ---------- */
