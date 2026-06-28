@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ytanalytics — premium YouTube growth studio · EknathaLabs</title>
-<meta name="description" content="Offline-first YouTube analytics studio. Title scoring, thumbnail grading, retention diagnostics — niche-calibrated for DevOps creators. Your data never leaves your browser.">
+<meta name="description" content="Offline-first YouTube analytics studio. Title scoring, thumbnail grading, retention diagnostics and more — free for every creator. Your data never leaves your browser.">
 <meta property="og:title" content="ytanalytics · EknathaLabs">
 <meta property="og:description" content="The premium YouTube growth studio that never sees your data. Title Studio, Thumb Studio, Channel Audit — fully offline, zero key.">
 <meta property="og:type" content="website">
@@ -34,6 +34,50 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.18;pointer-events:none;z-index:0}
 .glow.a{width:520px;height:520px;background:var(--mint);top:-180px;left:-120px}
 .glow.b{width:440px;height:440px;background:var(--violet);top:200px;right:-160px;opacity:.12}
+
+/* ===== FUTURISTIC LAYER ===== */
+/* aurora mesh backdrop */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora::before,.aurora::after{content:"";position:absolute;width:60vw;height:60vw;border-radius:50%;filter:blur(90px);opacity:.16;mix-blend-mode:screen}
+.aurora::before{background:radial-gradient(circle,var(--mint),transparent 60%);top:-15%;left:-5%;animation:aur1 18s ease-in-out infinite}
+.aurora::after{background:radial-gradient(circle,var(--violet),transparent 60%);top:5%;right:-10%;animation:aur2 22s ease-in-out infinite}
+@keyframes aur1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8vw,6vh) scale(1.15)}}
+@keyframes aur2{0%,100%{transform:translate(0,0) scale(1.1)}50%{transform:translate(-6vw,4vh) scale(1)}}
+@media(prefers-reduced-motion:reduce){.aurora::before,.aurora::after{animation:none}}
+
+/* tron grid horizon */
+.grid-horizon{position:fixed;left:0;right:0;bottom:0;height:42vh;z-index:0;pointer-events:none;overflow:hidden;perspective:280px;opacity:.5;-webkit-mask-image:linear-gradient(to top,#000 0%,transparent 95%);mask-image:linear-gradient(to top,#000 0%,transparent 95%)}
+.grid-horizon .plane{position:absolute;inset:-50% 0 -10% 0;background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);background-size:44px 44px;transform:rotateX(72deg);transform-origin:center bottom;animation:gridmove 6s linear infinite}
+@keyframes gridmove{from{background-position:0 0}to{background-position:0 44px}}
+@media(prefers-reduced-motion:reduce){.grid-horizon .plane{animation:none}}
+
+/* scan-line sweep on hero */
+.scan{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.scan::after{content:"";position:absolute;left:0;right:0;height:140px;background:linear-gradient(180deg,transparent,rgba(61,220,151,.05),transparent);animation:sweep 7s linear infinite}
+@keyframes sweep{0%{top:-140px}100%{top:100%}}
+@media(prefers-reduced-motion:reduce){.scan::after{display:none}}
+
+/* glass floating cards */
+.floaters{position:absolute;inset:0;pointer-events:none;z-index:1}
+.floater{position:absolute;background:rgba(20,20,24,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:13px 15px;box-shadow:0 20px 50px -20px rgba(0,0,0,.6);animation:float 9s ease-in-out infinite}
+.floater .fl-row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--txt-2)}
+.floater .fl-dot{width:8px;height:8px;border-radius:50%}
+.floater .fl-n{font-family:var(--mono);font-weight:600;color:var(--txt);font-size:15px}
+.floater.f1{top:14%;left:6%;animation-delay:0s}
+.floater.f2{top:62%;left:3%;animation-delay:-3s}
+.floater.f3{top:20%;right:5%;animation-delay:-1.5s}
+.floater.f4{top:68%;right:7%;animation-delay:-4.5s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-16px) rotate(1deg)}}
+@media(max-width:900px){.floaters{display:none}}
+@media(prefers-reduced-motion:reduce){.floater{animation:none}}
+
+/* perspective tilt for the demo card */
+.tilt-wrap{perspective:1400px}
+.tilt{transition:transform .25s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;will-change:transform}
+.demo-card{position:relative}
+.demo-card::before{content:"";position:absolute;inset:-1px;border-radius:var(--r-lg);padding:1px;background:linear-gradient(135deg,rgba(61,220,151,.5),rgba(155,140,255,.3),transparent 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.hero h1 .g{filter:drop-shadow(0 0 22px rgba(61,220,151,.22))}
+.statbar .s .n{text-shadow:0 0 18px rgba(61,220,151,.25)}
 nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);background:rgba(8,8,10,.72);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:-.02em}
@@ -53,7 +97,17 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:6px 14px;border-radius:999px;background:var(--surf);border:1px solid var(--line);font-size:13px;color:var(--txt-2);margin-bottom:30px;font-weight:500}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint)}
 .hero h1{font-size:clamp(38px,6.2vw,68px);line-height:1.04;letter-spacing:-.035em;font-weight:600;margin-bottom:22px}
-.hero h1 .g{background:linear-gradient(120deg,var(--mint),var(--cyan) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .g{background:linear-gradient(120deg,var(--mint),var(--cyan) 45%,var(--violet) 90%);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gshift 6s ease infinite}
+@keyframes gshift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.pricetag{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:7px 16px;border-radius:999px;background:linear-gradient(90deg,rgba(251,92,125,.12),rgba(155,140,255,.12));border:1px solid rgba(251,92,125,.25);font-size:13px;font-weight:500}
+.pricetag .strike{color:var(--txt-3);text-decoration:line-through}
+.pricetag .free{color:var(--mint);font-weight:600;font-family:var(--mono)}
+.statbar{display:flex;justify-content:center;gap:0;margin-top:38px;flex-wrap:wrap}
+.statbar .s{padding:0 28px;text-align:center;border-right:1px solid var(--line)}
+.statbar .s:last-child{border-right:none}
+.statbar .s .n{font-size:26px;font-weight:700;font-family:var(--mono);letter-spacing:-.02em;background:linear-gradient(120deg,var(--mint),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.statbar .s .l{font-size:12px;color:var(--txt-3);margin-top:3px}
+@media(max-width:560px){.statbar .s{padding:0 16px}.statbar .s .n{font-size:20px}}
 .hero p.sub{font-size:clamp(16px,2vw,19px);color:var(--txt-2);max-width:600px;margin:0 auto 34px;line-height:1.6}
 .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
 .hero .btn-pri{padding:13px 26px;font-size:15px}.hero .btn-gho{padding:13px 26px;font-size:15px}
@@ -82,7 +136,11 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .scorebox .delta{margin-top:14px;font-size:12px;font-family:var(--mono);padding:5px 11px;border-radius:999px;background:rgba(61,220,151,.12);color:var(--mint)}
 section{position:relative;z-index:1;padding:72px 0}
 .sec-head{text-align:center;max-width:620px;margin:0 auto 50px}
-.sec-head .tag{font-size:13px;font-weight:600;color:var(--mint);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px;font-family:var(--mono)}
+.sec-head .tag{font-size:13px;font-weight:600;color:var(--mint);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px;font-family:var(--mono);display:inline-block;padding:5px 13px;border-radius:999px;background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.18)}
+.cta-band{position:relative;z-index:1;margin:30px auto 0;max-width:760px;padding:0 28px}
+.cta-inner{background:linear-gradient(135deg,rgba(61,220,151,.1),rgba(155,140,255,.08));border:1px solid var(--line-2);border-radius:var(--r-lg);padding:44px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-inner h2{font-size:clamp(26px,4vw,36px);letter-spacing:-.03em;font-weight:600;margin-bottom:12px}
+.cta-inner p{color:var(--txt-2);margin-bottom:26px;font-size:16px}
 .sec-head h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;font-weight:600;line-height:1.1;margin-bottom:14px}
 .sec-head p{font-size:16px;color:var(--txt-2)}
 .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
@@ -164,7 +222,7 @@ textarea.inp{resize:vertical;min-height:70px}
 .row .body{flex:1}
 .row .body b{font-weight:600;font-size:14px}
 .row .body span{display:block;font-size:13px;color:var(--txt-3);margin-top:2px}
-.pass{color:var(--mint)}.warn{color:var(--amber)}.fail{color:var(--rose)}
+.pass{color:var(--mint)}.info{color:var(--blue)}.warn{color:var(--amber)}.fail{color:var(--rose)}
 .pill{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-family:var(--mono);font-weight:500}
 .pill.good{color:var(--mint);background:rgba(61,220,151,.12)}
 .pill.gem{color:var(--blue);background:rgba(91,157,249,.12)}
@@ -204,6 +262,8 @@ textarea.inp{resize:vertical;min-height:70px}
 </head>
 <body>
 <div class="glow a"></div><div class="glow b"></div>
+<div class="aurora"></div>
+<div class="grid-horizon"><div class="plane"></div></div>
 
 <div id="landing">
 <nav><div class="wrap">
@@ -213,22 +273,35 @@ textarea.inp{resize:vertical;min-height:70px}
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>New · Niche-calibrated for cloud &amp; DevOps creators</div>
+  <div class="pricetag"><span>Everything they charge</span> <span class="strike">$49.99/mo</span> <span>→</span> <span class="free">$0 forever</span></div>
   <h1>Title intelligence.<br>Thumbnail studio.<br><span class="g">Audits that never leave your browser.</span></h1>
-  <p class="sub">The premium YouTube growth studio for creators who treat their channel like infrastructure. Data-backed decisions in seconds — calibrated to your niche, not global averages.</p>
+  <p class="sub">Everything vidIQ and ViewStats charge for — title scoring, A/B testing, channel audits, money tools — free, private, and built for every creator, in every niche.</p>
   <div class="hero-cta">
     <button class="btn btn-pri" onclick="openApp('audit')">Start free<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     <button class="btn btn-gho" onclick="document.getElementById('features').scrollIntoView()">See the tools</button>
   </div>
   <div class="trust"><b>100% offline</b> · no account · no API key · your data stays yours</div>
+  <div class="statbar">
+    <div class="s"><div class="n" data-count="17">0</div><div class="l">free tools</div></div>
+    <div class="s"><div class="n">$0</div><div class="l">forever</div></div>
+    <div class="s"><div class="n" data-count="100" data-suffix="%">0</div><div class="l">private</div></div>
+    <div class="s"><div class="n">0</div><div class="l">accounts needed</div></div>
+  </div>
+  <div class="scan"></div>
+  <div class="floaters">
+    <div class="floater f1"><div class="fl-row"><span class="fl-dot" style="background:var(--mint)"></span>CTR</div><div class="fl-n">5.8%</div></div>
+    <div class="floater f2"><div class="fl-row"><span class="fl-dot" style="background:var(--violet)"></span>Retention</div><div class="fl-n">41%</div></div>
+    <div class="floater f3"><div class="fl-row"><span class="fl-dot" style="background:var(--cyan)"></span>Title score</div><div class="fl-n">82</div></div>
+    <div class="floater f4"><div class="fl-row"><span class="fl-dot" style="background:var(--amber)"></span>Hidden gems</div><div class="fl-n">3</div></div>
+  </div>
 </div></header>
 
-<div class="demo"><div class="demo-card">
+<div class="demo tilt-wrap"><div class="demo-card tilt" id="tiltCard">
   <div class="demo-bar"><div class="dots"><i></i><i></i><i></i></div><span class="url">ytanalytics / title-studio</span><span class="live"><span class="pulse"></span>live</span></div>
   <div class="demo-body">
     <div>
       <div class="demo-label">Title Studio</div>
-      <input class="demo-input" id="heroTitle" value="How I fixed a Kubernetes CrashLoop in production">
+      <input class="demo-input" id="heroTitle" value="7 Beginner Mistakes That Ruin Your First Video">
       <div class="metarow" id="heroMeta"></div>
     </div>
     <div class="scorebox"><div class="big mono" id="heroScore">—</div><div class="cap" id="heroCap">predicted strength</div><div class="delta" id="heroDelta">vs niche baseline</div></div>
@@ -236,23 +309,27 @@ textarea.inp{resize:vertical;min-height:70px}
 </div></div>
 
 <section id="features"><div class="wrap">
-  <div class="sec-head"><div class="tag">The studio</div><h2>Four sharp tools.<br>Everything works offline.</h2><p>Each one calibrated to your niche. No extension, no upload, no key required.</p></div>
+  <div class="sec-head"><div class="tag">The studio · 17 tools</div><h2>A full studio.<br>Everything works offline.</h2><p>Title scoring, A/B testing, channel audits, money tools, language strategy and more — for creators in every niche. No extension, no upload, no account.</p></div>
   <div class="feat-grid" id="featGrid"></div>
 </div></section>
 
 <section id="compare"><div class="wrap">
-  <div class="sec-head"><div class="tag">Honest comparison</div><h2>Different philosophy<br>from vidIQ &amp; TubeBuddy</h2><p>We match them on the tools that matter and beat them on privacy — and we tell you plainly what we can't do offline.</p></div>
-  <div class="cmp"><table><thead><tr><th>Capability</th><th class="c">vidIQ</th><th class="c">TubeBuddy</th><th class="c us">ytanalytics</th></tr></thead><tbody id="cmpBody"></tbody></table></div>
+  <div class="sec-head"><div class="tag">Honest comparison</div><h2>Everything they charge for —<br>free, private, niche-built</h2><p>vidIQ, Social Blade, ViewStats and ViralVoid are powerful but paid and cloud-based. We're free, private, and offline — and we're upfront about the one thing we can't do without a server.</p></div>
+  <div class="cmp"><table><thead><tr><th>Capability</th><th class="c">vidIQ</th><th class="c">Social&nbsp;Blade</th><th class="c">ViewStats</th><th class="c">ViralVoid</th><th class="c us">ytanalytics</th></tr></thead><tbody id="cmpBody"></tbody></table></div>
 </div></section>
 
 <section id="how"><div class="wrap">
   <div class="sec-head"><div class="tag">How it works</div><h2>Your data never<br>touches a server</h2><p>There's no backend. CSVs parse in your browser, thumbnails grade on a canvas in memory. Close the tab, it's gone.</p></div>
-  <div style="text-align:center"><button class="btn btn-pri" style="padding:14px 30px;font-size:15px" onclick="openApp('audit')">Open the studio →</button></div>
+  <div class="cta-band"><div class="cta-inner">
+    <h2>Ready to grow — for free?</h2>
+    <p>17 tools. No account. No upload. Your data stays yours.</p>
+    <button class="btn btn-pri" style="padding:14px 32px;font-size:16px" onclick="openApp('audit')">Open the studio<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div></div>
 </div></section>
 
 <footer><div class="wrap">
   <div class="fb"><div class="mk" style="width:28px;height:28px;border-radius:8px;background:var(--surf);border:1px solid var(--line);display:grid;place-items:center"><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M9 7l9 5-9 5z" fill="#3DDC97"/></svg></div>ytanalytics</div>
-  <div class="fl">EknathaLabs™ · offline-first · <a href="https://github.com/eknatha" style="color:var(--txt-2)">github.com/eknatha</a></div>
+  <div class="fl">Built by <b style="color:var(--txt-2)">EknathaLabs</b> with <span style="color:var(--rose)">&#10084;</span> for Everyone</div>
 </div></footer>
 </div>
 
@@ -294,6 +371,39 @@ License: MIT
 
 </script>
 <script>
+/* futuristic interactions — cursor tilt + count-up, all guarded */
+(function(){
+  try{
+    var card=document.getElementById('tiltCard');
+    var wrap=card&&card.closest('.tilt-wrap');
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(card&&wrap&&!reduce&&window.matchMedia('(min-width:700px)').matches){
+      wrap.addEventListener('mousemove',function(e){
+        var r=wrap.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+        card.style.transform='rotateX('+(-py*6)+'deg) rotateY('+(px*8)+'deg)';
+      });
+      wrap.addEventListener('mouseleave',function(){card.style.transform='rotateX(0) rotateY(0)';});
+    }
+    // count-up stats
+    var nums=document.querySelectorAll('.statbar .n[data-count]');
+    var seen=false;
+    function run(){
+      if(seen)return;seen=true;
+      nums.forEach(function(el){
+        var target=+el.getAttribute('data-count'),suf=el.getAttribute('data-suffix')||'',t0=null,dur=1100;
+        function step(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);el.textContent=Math.round(target*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(step);}
+        requestAnimationFrame(step);
+      });
+    }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)run();});});
+      var sb=document.querySelector('.statbar');if(sb)io.observe(sb);
+    } else run();
+  }catch(e){}
+})();
+</script>
+<script>
 /* ytanalytics · EknathaLabs — premium offline studio. Self-contained, error-guarded. */
 'use strict';
 
@@ -321,6 +431,10 @@ const IC = {
   crown:'<path d="M3 8l4 4 5-7 5 7 4-4v9H3z"/>',
   grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
   fire:'<path d="M12 2c1 4 4 5 4 9a4 4 0 0 1-8 0c0-1 .5-2 1-2.5C9 11 8 13 8 15a4 4 0 0 0 8 0c0-4-3-5-4-13z"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>',
+  split:'<path d="M6 3v6a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v6M6 3H3m3 0h3M18 21h-3m3 0h3"/><circle cx="6" cy="3" r="0.5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  rocket:'<path d="M5 13c-1.5 1.5-2 5-2 5s3.5-.5 5-2M9 15l-3-3a12 12 0 0 1 8-8c2 0 3 1 3 3a12 12 0 0 1-8 8zM14 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>',
 };
 const svg=(name,sw)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw||1.7}" stroke-linecap="round" stroke-linejoin="round">${IC[name]||''}</svg>`;
 
@@ -354,9 +468,12 @@ function scoreTitle(t){
 function buildTags(topic){
   topic=(topic||'').trim().toLowerCase();if(!topic)return[];
   const base=topic.split(/\s+/).filter(w=>!FILLER.includes(w));
-  const mods=['tutorial','for beginners','explained','2026','step by step','crash course','in production','hands on','interview','best practices'];
+  const mods=['tutorial','for beginners','explained','2026','step by step','tips','guide','review','at home','that actually work'];
   const out=new Set([topic]);base.forEach(b=>out.add(b));mods.forEach(m=>out.add(topic+' '+m));
-  const NT={kubernetes:['k8s','kubectl','helm','pods','cluster'],terraform:['iac','hcl','terraform state','provisioning'],docker:['containers','dockerfile','compose','image'],aws:['ec2','s3','iam','cloud'],linux:['bash','shell','sysadmin','cli'],devops:['ci cd','pipeline','sre','automation']};
+  const NT={kubernetes:['k8s','kubectl','helm','pods'],terraform:['iac','infrastructure','provisioning'],docker:['containers','compose','image'],aws:['ec2','s3','cloud'],linux:['bash','shell','cli'],python:['coding','programming','script'],javascript:['js','web dev','react'],
+    makeup:['beauty','tutorial','cosmetics'],skincare:['routine','glow','beauty'],workout:['fitness','gym','home workout'],recipe:['cooking','food','easy recipe'],
+    gaming:['gameplay','walkthrough','tips'],investing:['stocks','money','finance'],crypto:['bitcoin','blockchain','trading'],travel:['vlog','guide','budget travel'],
+    photography:['camera','editing','tips'],music:['cover','beats','production'],guitar:['lesson','chords','tutorial'],drawing:['art','sketch','tutorial']};
   base.forEach(b=>{if(NT[b])NT[b].forEach(x=>out.add(x))});
   return[...out].slice(0,15);
 }
@@ -408,20 +525,94 @@ function bench(val,b,inv){if(val==null)return['','—'];
 
 /* ============ TOP CREATORS (bundled snapshot — as of June 2026) ============ */
 const SNAPSHOT_DATE='June 2026';
+// Verified snapshot. Ranks 1-40 high-confidence; 41-50 lower (sources vary). Subs in millions, rounded.
 const TOP_SUBS=[
-  ['MrBeast',478,'Entertainment','🇺🇸'],['T-Series',300,'Music','🇮🇳'],['Cocomelon',196,'Kids','🇺🇸'],
-  ['SET India',182,'Entertainment','🇮🇳'],['Kids Diana Show',128,'Kids','🇺🇦'],['Vlad and Niki',124,'Kids','🇷🇺'],
-  ['Like Nastya',122,'Kids','🇷🇺'],['PewDiePie',111,'Gaming','🇸🇪'],['Zee Music Company',109,'Music','🇮🇳'],
-  ['WWE',103,'Sports','🇺🇸'],['Goldmines',98,'Film','🇮🇳'],['Sony SAB',93,'Entertainment','🇮🇳'],
-  ['5-Minute Crafts',82,'How-to','🇨🇾'],['BangtanTV (BTS)',79,'Music','🇰🇷'],['Justin Bieber',74,'Music','🇨🇦']
+  ['MrBeast',501,'Entertainment','🇺🇸'],['T-Series',345,'Music','🇮🇳'],['Cocomelon',200,'Kids','🇺🇸'],
+  ['SET India',186,'Entertainment','🇮🇳'],['Kids Diana Show',138,'Kids','🇺🇦'],['Vlad and Niki',150,'Kids','🇷🇺'],
+  ['Like Nastya',125,'Kids','🇷🇺'],['Stokes Twins',140,'Entertainment','🇺🇸'],['PewDiePie',111,'Gaming','🇸🇪'],
+  ['Zee Music Company',115,'Music','🇮🇳'],['WWE',105,'Sports','🇺🇸'],['KIMPRO',104,'Entertainment','🇰🇷'],
+  ['Goldmines',100,'Film','🇮🇳'],['Sony SAB',97,'Entertainment','🇮🇳'],['Bispo Bruno Leonardo',75,'Religion','🇧🇷'],
+  ['Fede Vigevani',74,'Comedy','🇺🇾'],['Anaya Kandhal',72,'Family','🇮🇳'],['Zhong',71,'Entertainment','🇺🇸'],
+  ['YOLO AVENTURAS',69,'Comedy','🇲🇽'],['5-Minute Crafts',82,'How-to','🇨🇾'],['BangtanTV (BTS)',79,'Music','🇰🇷'],
+  ['Sony Entertainment Television',88,'Entertainment','🇮🇳'],['Pinkfong',75,'Kids','🇰🇷'],['Justin Bieber',74,'Music','🇨🇦'],
+  ['Blackpink',96,'Music','🇰🇷'],['Toys and Colors',82,'Kids','🇺🇸'],['HYBE LABELS',79,'Music','🇰🇷'],
+  ['Ed Sheeran',58,'Music','🇬🇧'],['Marshmello',57,'Music','🇺🇸'],['Ryan\'s World',38,'Kids','🇺🇸'],
+  ['Dude Perfect',60,'Sports','🇺🇸'],['Eminem',64,'Music','🇺🇸'],['Ariana Grande',54,'Music','🇺🇸'],
+  ['Billie Eilish',52,'Music','🇺🇸'],['Taylor Swift',61,'Music','🇺🇸'],['BG Bishop',56,'Religion','🇮🇳'],
+  ['ChuChu TV',81,'Kids','🇮🇳'],['Wave Music',62,'Music','🇮🇳'],['T-Series Bhakti Sagar',82,'Religion','🇮🇳'],
+  ['Aaj Tak',79,'News','🇮🇳'],['Vlad and Niki (es)',55,'Kids','🇷🇺'],['Markiplier',37,'Gaming','🇺🇸'],
+  ['El Reino Infantil',58,'Kids','🇦🇷'],['Movieclips',61,'Film','🇺🇸'],['LooLoo Kids',55,'Kids','🇷🇴'],
+  ['Shemaroo',52,'Film','🇮🇳'],['Bad Bunny',51,'Music','🇵🇷'],['Justin Bieber VEVO',50,'Music','🇨🇦'],
+  ['CoComelon en Español',54,'Kids','🇺🇸'],['MrBeast Gaming',50,'Gaming','🇺🇸']
 ];
 const NICHE_CREATORS={
-  'Cloud / DevOps':[['TechWorld with Nana',1.1,'Kubernetes, DevOps'],['NetworkChuck',4.2,'Cloud, networking, Linux'],['freeCodeCamp',10.5,'Full curriculum, certs'],['KodeKloud',0.42,'K8s, Docker, IaC labs'],['That DevOps Guy (Rawkode)',0.13,'Cloud-native, GitOps'],['Fireship',3.6,'Fast dev explainers'],['Tech With Tim',1.5,'Python, backend']],
-  'Programming':[['freeCodeCamp',10.5,'Courses'],['Fireship',3.6,'Web dev'],['Traversy Media',2.3,'Full-stack'],['Programming with Mosh',4.5,'Fundamentals'],['Tech With Tim',1.5,'Python']],
-  'Tech reviews':[['MKBHD',20.1,'Gadgets'],['Linus Tech Tips',16.2,'PC hardware'],['Unbox Therapy',24.3,'Unboxings'],['Dave2D',4.5,'Laptops']],
-  'Finance':[['Graham Stephan',4.6,'Investing'],['Andrei Jikh',2.3,'Money'],['Ali Abdaal',6.5,'Productivity+money']],
-  'Gaming':[['PewDiePie',111,'Variety'],['Markiplier',37,'Let\'s plays'],['Jacksepticeye',31,'Gaming']]
+  'Gaming':[['PewDiePie',111,'Variety'],['Markiplier',37,'Let\'s plays'],['Jacksepticeye',31,'Gaming'],['Techno Gamerz',43,'India gaming'],['Total Gaming',45,'Free Fire/India']],
+  'Music':[['T-Series',345,'Bollywood'],['BLACKPINK',96,'K-pop'],['Justin Bieber',74,'Pop'],['Marshmello',57,'EDM']],
+  'Beauty & Fashion':[['James Charles',23,'Makeup'],['NikkieTutorials',13,'Beauty'],['Jeffree Star',13,'Cosmetics'],['Sandeep Maheshwari',40,'India (motiv.)']],
+  'Comedy':[['Fede Vigevani',74,'Comedy'],['Ryan Higa',21,'Sketches'],['CarryMinati',45,'India comedy'],['Smosh',27,'Sketch']],
+  'Cooking & Food':[['Nick DiGiovanni',28,'Cooking'],['Joshua Weissman',10,'Recipes'],['Binging with Babish',10,'Cooking'],['Your Food Lab',7,'India food']],
+  'Fitness & Health':[['Chloe Ting',25,'Workouts'],['athleanx',14,'Training'],['FitnessBlender',6.5,'Home fitness'],['Yoga With Adriene',13,'Yoga']],
+  'Vlogs & Lifestyle':[['David Dobrik',18,'Vlogs'],['Emma Chamberlain',12,'Lifestyle'],['Casey Neistat',12,'Filmmaking vlogs']],
+  'Education':[['Kurzgesagt',23,'Science animation'],['Veritasium',17,'Science'],['CrashCourse',16,'Academic'],['Vsauce',23,'Curiosity'],['Khan Academy',9,'Lessons']],
+  'Tech reviews':[['MKBHD',20.1,'Gadgets'],['Unbox Therapy',24.3,'Unboxings'],['Linus Tech Tips',16.2,'PC hardware'],['Dave2D',4.5,'Laptops'],['Mrwhosetheboss',20.5,'Smartphones']],
+  'Finance':[['Graham Stephan',4.6,'Investing'],['Andrei Jikh',2.3,'Money'],['Ali Abdaal',6.5,'Productivity+money'],['Minority Mindset',1.5,'Wealth'],['CA Rachana Ranade',4.3,'India finance']],
+  'Travel':[['Drew Binsky',5,'Countries'],['Mark Wiens',11,'Food travel'],['Kara and Nate',4,'Couple travel'],['Mountain Trekker',5,'India travel']],
+  'Sports':[['Dude Perfect',60,'Trick shots'],['WWE',105,'Wrestling'],['NBA',23,'Basketball'],['olympics',12,'Multi-sport']],
+  'Kids & Family':[['Cocomelon',200,'Nursery'],['Kids Diana Show',138,'Play'],['Vlad and Niki',150,'Family'],['Ryan\'s World',38,'Toys']],
+  'Science & Tech':[['Mark Rober',70,'Engineering'],['Veritasium',17,'Physics'],['The Action Lab',5,'Experiments'],['SmarterEveryDay',12,'Science']],
+  'Film & Animation':[['Movieclips',61,'Clips'],['Goldmines',100,'Films'],['Pixar',12,'Animation'],['Corridor Crew',13,'VFX']],
+  'Programming':[['freeCodeCamp',10.5,'Courses'],['Fireship',3.6,'Web dev'],['Traversy Media',2.3,'Full-stack'],['Programming with Mosh',4.5,'Fundamentals'],['Web Dev Simplified',1.5,'JS/web']],
+  'Cloud / DevOps':[['TechWorld with Nana',1.1,'Kubernetes, DevOps'],['NetworkChuck',4.2,'Cloud, networking, Linux'],['freeCodeCamp',10.5,'Full curriculum, certs'],['KodeKloud',0.42,'K8s, Docker, IaC labs'],['That DevOps Guy (Rawkode)',0.13,'Cloud-native, GitOps'],['Fireship',3.6,'Fast dev explainers']],
+  'News & Politics':[['Aaj Tak',79,'India news'],['ABP NEWS',60,'India news'],['Vox',12,'Explainers'],['TLDR News',2,'Global']],
+  'Business & Entrepreneur':[['Y Combinator',1.5,'Startups'],['GaryVee',4.4,'Marketing'],['Think Media',3,'Creator biz'],['Aevy TV',1.4,'India biz']],
+  'Cars & Autos':[['supercars',5,'Exotics'],['Doug DeMuro',4.5,'Reviews'],['donut',9,'Car culture'],['carwow',10,'Reviews']],
+  'Art & Design':[['Proko',3,'Drawing'],['The Art Assignment',1,'Art'],['DesignCourse',1,'UI/UX'],['Adobe',2,'Creative']],
+  'Motivation & Self-help':[['Sandeep Maheshwari',40,'India motiv.'],['TED',25,'Talks'],['Improvement Pill',4,'Self-help'],['Better Ideas',2,'Habits']],
 };
+
+/* ============ MULTI-LANGUAGE OPPORTUNITY ============ */
+/* Each: [name, native, speakers(M, YouTube-relevant), rpmTier 1-5, competition 1-5(low=good),
+   effort label, region tag, note]. India-weighted: regional Indian languages flagged for the India market. */
+const LANGUAGES=[
+  ['Hindi','हिन्दी',600,2,3,'low','India','Largest Indian audience — and most creators publish English-only, leaving a huge Hindi-speaking base in tier-2/3 cities untapped.','india'],
+  ['Spanish','Español',490,3,3,'low','LATAM + Spain','2nd-biggest language on YouTube. Massive, fast-growing LATAM developer community, light tech competition.','global'],
+  ['Portuguese','Português',260,3,2,'low','Brazil','Brazil is a top-5 YouTube market with an enormous, underserved dev community. Pairs with Spanish to cover LATAM.','global'],
+  ['Indonesian','Bahasa',200,2,1,'low','Indonesia','One of YouTube\'s largest & fastest-growing audiences. Young tech workforce, very low tech-content competition — best effort-to-reach ratio.','global'],
+  ['Bengali','বাংলা',270,1,2,'medium','India + Bangladesh','Huge speaker base across India and Bangladesh. Growing IT workforce, very little technical content.','india'],
+  ['Telugu','తెలుగు',95,2,2,'low','India','Strong, fast-growing audience in Telangana and the Telugu diaspora — under-served by most creators.','india'],
+  ['Tamil','தமிழ்',85,2,2,'low','India + SEA','Strong technical workforce (Chennai + diaspora in SG/MY). Active, loyal tech audience.','india'],
+  ['Marathi','मराठी',95,1,2,'medium','India','Pune is a large IT/engineering hub. Underserved for technical content in Marathi.','india'],
+  ['Kannada','ಕನ್ನಡ',60,2,2,'low','India','Bengaluru and Karnataka — a large, engaged urban audience with growing online spend.','india'],
+  ['Malayalam','മലയാളം',45,2,2,'medium','India + Gulf','Large Gulf diaspora with strong earning power; engaged tech community.','india'],
+  ['Arabic','العربية',310,3,2,'high','MENA + Gulf','Large, underserved for technical content. Growing Gulf cloud market. Effort higher (dialect + RTL).','global'],
+  ['German','Deutsch',95,5,4,'high','DACH','Among the highest CPMs on YouTube — translating earns more per view, though the audience expects polish.','global'],
+  ['French','Français',230,4,3,'medium','France + Africa','Good RPM plus huge francophone-Africa reach. Solid balance of earnings and growth.','global'],
+  ['Japanese','日本語',110,5,4,'high','Japan','High RPM, strong engineering culture, but the hardest: subs rarely enough, audience expects native quality.','global'],
+];
+const RPM_TIER=['','very low','moderate','good','high','premium'];
+const COMP_LABEL=['','wide open','low','moderate','crowded','saturated'];
+function langAdvice(channelLang){
+  // score = reach(speakers) blended with low competition and RPM, India-weighted slightly
+  const max=Math.max(...LANGUAGES.map(l=>l[2]));
+  return LANGUAGES.map(l=>{
+    const [name,native,sp,rpm,comp,effort,region,note,grp]=l;
+    const reachScore=sp/max*40;                 // 0-40
+    const compScore=(6-comp)*8;                  // low competition = up to 40
+    const rpmScore=rpm*4;                        // 0-20
+    const indiaBonus=grp==='india'?6:0;          // user's edge
+    const score=Math.round(reachScore+compScore+rpmScore+indiaBonus);
+    let why;
+    if(comp<=2&&rpm>=3)why=['pass','High reach + high pay — prime target'];
+    else if(comp<=2)why=['pass','Low competition — easy reach win'];
+    else if(rpm>=4)why=['warn','High RPM but tougher entry — worth it for earnings'];
+    else why=['warn','Solid opportunity — weigh effort'];
+    // format recommendation by effort
+    const fmtRec=effort==='low'?'Start with translated titles + subtitles (cheap, fast).':
+      effort==='medium'?'Subtitles first; add multi-language audio if it gains traction.':
+      'Needs dubbing or a dedicated regional channel — audience expects native quality.';
+    return{name,native,sp,rpm,comp,effort,region,note,grp,score,why,fmtRec};
+  }).sort((a,b)=>b.score-a.score);
+}
 
 /* ============ YOUTUBE MONEY CALCULATOR ============ */
 // RPM = revenue per 1000 monetized views, AFTER YouTube's 45% cut. Niche/geo adjust CPM.
@@ -482,28 +673,84 @@ async function urlAudit(input,key){
   const uploads=c.contentDetails.relatedPlaylists.uploads;
   const pl=await ytFetch('playlistItems?part=snippet,contentDetails&maxResults=20&playlistId='+uploads,key);
   const vidIds=pl.items.map(i=>i.contentDetails.videoId).join(',');
-  const vs=await ytFetch('videos?part=snippet,statistics&id='+vidIds,key);
-  const vids=vs.items.map(v=>({
-    title:v.snippet.title,
-    views:+v.statistics.viewCount||0,
-    likes:+v.statistics.likeCount||0,
-    pub:new Date(v.snippet.publishedAt),
-    titleScore:scoreTitle(v.snippet.title).score
-  }));
+  const vs=await ytFetch('videos?part=snippet,statistics,contentDetails&id='+vidIds,key);
+  const vids=vs.items.map(v=>{
+    const views=+v.statistics.viewCount||0, likes=+v.statistics.likeCount||0;
+    return{
+      title:v.snippet.title,
+      views, likes,
+      engagement: views?likes/views*100:0,
+      pub:new Date(v.snippet.publishedAt),
+      dur:parseISODur(v.contentDetails?.duration),
+      titleScore:scoreTitle(v.snippet.title).score,
+      hasThumb:!!(v.snippet.thumbnails?.maxres||v.snippet.thumbnails?.high)
+    };
+  });
   // cadence: avg days between uploads
   const dates=vids.map(v=>v.pub).sort((a,b)=>b-a);
-  let cadence=null;
-  if(dates.length>1){let g=0;for(let i=0;i<dates.length-1;i++)g+=(dates[i]-dates[i+1])/864e5;cadence=g/(dates.length-1);}
+  let cadence=null, consistency=null;
+  if(dates.length>1){
+    const gaps=[];for(let i=0;i<dates.length-1;i++)gaps.push((dates[i]-dates[i+1])/864e5);
+    cadence=gaps.reduce((s,g)=>s+g,0)/gaps.length;
+    // consistency = how regular the gaps are (lower stdev/mean = more consistent)
+    const m=cadence, sd=Math.sqrt(gaps.reduce((s,g)=>s+(g-m)**2,0)/gaps.length);
+    consistency=m?Math.max(0,Math.min(100,Math.round(100-(sd/m)*60))):null;
+  }
   const now=Date.now();
   const med=(()=>{const a=vids.map(v=>v.views/Math.max(1,(now-v.pub)/864e5)).sort((p,q)=>p-q);return a[Math.floor(a.length/2)]||0;})();
   vids.forEach(v=>{const vpd=v.views/Math.max(1,(now-v.pub)/864e5);v.tag=vpd>med*1.3?'aging well':vpd<med*0.6?'decaying':'steady';});
-  return{
-    channel:{title:c.snippet.title,subs:+c.statistics.subscriberCount||0,views:+c.statistics.viewCount||0,
-      videos:+c.statistics.videoCount||0,thumb:c.snippet.thumbnails?.default?.url,desc:c.snippet.description},
-    vids,cadence,
-    avgTitleScore:Math.round(vids.reduce((s,v)=>s+v.titleScore,0)/vids.length)
-  };
+  const daysSinceLast=dates.length?(now-dates[0])/864e5:null;
+  const avgEng=vids.reduce((s,v)=>s+v.engagement,0)/vids.length;
+  const avgTitleScore=Math.round(vids.reduce((s,v)=>s+v.titleScore,0)/vids.length);
+  const channel={title:c.snippet.title,subs:+c.statistics.subscriberCount||0,views:+c.statistics.viewCount||0,
+      videos:+c.statistics.videoCount||0,thumb:c.snippet.thumbnails?.default?.url,desc:c.snippet.description};
+  return{channel,vids,cadence,consistency,daysSinceLast,avgEng,avgTitleScore,
+    suggestions:buildUrlSuggestions(channel,vids,{cadence,consistency,daysSinceLast,avgEng,avgTitleScore})};
 }
+// ISO 8601 duration (PT#M#S) -> seconds
+function parseISODur(d){if(!d)return 0;const m=d.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);if(!m)return 0;return (+m[1]||0)*3600+(+m[2]||0)*60+(+m[3]||0);}
+
+/* build ranked fixes + per-video + strategy from public data */
+function buildUrlSuggestions(ch,vids,m){
+  const fixes=[];  // [severity 0-100, title, detail]  higher=more urgent
+  // title quality
+  if(m.avgTitleScore<50)fixes.push([90,'Rewrite your titles',`Average title score is ${m.avgTitleScore}/100. Titles are your #1 click lever and they're underperforming. Front-load the keyword, add a number, and a curiosity hook.`]);
+  else if(m.avgTitleScore<70)fixes.push([55,'Sharpen your titles',`Titles average ${m.avgTitleScore}/100 — decent but not magnetic. The Optimize tab can score drafts before you publish.`]);
+  // consistency
+  if(m.consistency!=null&&m.consistency<50)fixes.push([80,'Upload on a schedule',`Your upload timing is erratic (consistency ${m.consistency}/100). The algorithm and your audience both reward predictability. Pick a cadence you can actually sustain.`]);
+  // dormancy
+  if(m.daysSinceLast!=null&&m.cadence&&m.daysSinceLast>m.cadence*2.5)fixes.push([85,'You\'ve gone quiet',`It's been ${Math.round(m.daysSinceLast)} days since your last upload — well past your usual ~${Math.round(m.cadence)}-day rhythm. Dormancy kills momentum and reach.`]);
+  // engagement
+  if(m.avgEng<1)fixes.push([60,'Lift engagement',`Like-to-view ratio is ${m.avgEng.toFixed(1)}% — low. Ask a specific question in the first 30s and pin a comment to prompt replies.`]);
+  // decaying catalog
+  const decay=vids.filter(v=>v.tag==='decaying').length;
+  if(decay>vids.length*0.5)fixes.push([50,'Refresh aging videos',`${decay} of the last ${vids.length} videos are losing velocity. Update thumbnails/titles on the ones that once did well.`]);
+  // concentration
+  const sorted=[...vids].sort((a,b)=>b.views-a.views);
+  const total=vids.reduce((s,v)=>s+v.views,0)||1;
+  if(sorted[0]&&sorted[0].views/total>0.5)fixes.push([45,'Diversify beyond one hit',`One video drives ${Math.round(sorted[0].views/total*100)}% of recent views. Study what made it work and make 2-3 spiritual sequels.`]);
+  // duration sweet spot (educational/tutorial content rewards depth, but not bloat)
+  const avgDur=vids.reduce((s,v)=>s+v.dur,0)/vids.length;
+  if(avgDur>0&&avgDur<240)fixes.push([35,'Consider longer formats',`Average video is ${fmtDur(avgDur)}. For educational/tutorial content, deeper 8-15 min videos often hold better watch-time and unlock mid-roll ads.`]);
+  fixes.sort((a,b)=>b[0]-a[0]);
+
+  // per-video: lowest title scores or decaying with decent views = best targets
+  const perVideo=sorted.map(v=>{const tips=[];
+    if(v.titleScore<60)tips.push('weak title ('+v.titleScore+'/100) — rewrite');
+    if(v.tag==='decaying'&&v.views>med0(vids))tips.push('was popular, now fading — refresh thumbnail');
+    if(v.engagement<0.8&&v.views>1000)tips.push('low engagement — add a pinned question');
+    return tips.length?{title:v.title,views:v.views,tips}:null;
+  }).filter(Boolean).slice(0,6);
+
+  // strategy
+  const strategy=[];
+  strategy.push(m.cadence!=null?`You upload roughly every ${Math.round(m.cadence)} days. ${m.cadence>10?'Tightening toward weekly would compound growth — if sustainable.':'Solid rhythm; protect it.'}`:'Not enough uploads to read a cadence yet.');
+  strategy.push(m.consistency!=null?`Consistency score ${m.consistency}/100 — ${m.consistency>=70?'very regular, keep it up.':m.consistency>=50?'somewhat irregular; a fixed publish day helps.':'erratic; this is your biggest structural fix.'}`:'');
+  const winners=sorted.slice(0,3).map(v=>v.title).filter(Boolean);
+  if(winners.length)strategy.push(`Your top recent performers: "${winners.join('", "')}". Lean into these formats and topics.`);
+  return{fixes,perVideo,strategy:strategy.filter(Boolean)};
+}
+function med0(vids){const a=vids.map(v=>v.views).sort((p,q)=>p-q);return a[Math.floor(a.length/2)]||0;}
 
 /* ============ FORMATTERS ============ */
 const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(Math.round(n));
@@ -527,32 +774,42 @@ function paintHero(){
 }
 function paintFeatures(){
   const g=$('#featGrid');if(!g)return;
-  const F=[['optimize','Title Studio','Score any title 0–100 with written reasoning on length, power words, curiosity and front-loading — calibrated for DevOps search.'],
-  ['thumb','Thumb Studio','Drop a thumbnail and grade contrast, detail density and mobile readability on-canvas. Nothing is uploaded.'],
-  ['audit','Channel Audit','Drag your Studio CSV. Niche-benchmarked CTR, retention, velocity decay and hidden-gem detection — all in your browser.'],
-  ['research','Keyword Research','Niche-aware tag generation and title ideas. We don\'t fake search-volume numbers we can\'t source.']];
-  g.innerHTML=F.map(([k,t,d])=>`<div class="feat" onclick="openApp('${k==='thumb'?'optimize':k}')"><div class="ic">${svg(k)}</div><h3>${t}</h3><p>${d}</p><div class="go">Open ${svg('arrow',2)}</div></div>`).join('');
+  const F=[
+  ['optimize','Title & Thumbnail Studio','Score titles 0–100 with written reasoning, grade thumbnails on-canvas for contrast and mobile readability.'],
+  ['split','A/B Test','Pit title and thumbnail variants head-to-head and crown a winner. A paid feature on vidIQ &amp; ViewStats — free here.'],
+  ['audit','Channel Audit','Drag your Studio CSV: niche-benchmarked CTR, retention, velocity decay, hidden-gem detection — all in your browser.'],
+  ['link','Audit by URL','Analyze any channel by name or URL — subscribers, performance, ranked fixes and strategy. Your key, your quota.'],
+  ['clock','Best Time to Publish','Finds your strongest publish days from your own data — plus India-aware niche timing guidance.'],
+  ['money','Money & Watch-time','Earnings estimator and a translator that turns retention and CTR gains into real annual dollars.'],
+  ['globe','Language Opportunity','14 languages ranked by reach, RPM and competition — weighted for an India-based creator. Your regional edge, flagged.'],
+  ['fire','Roast My Channel','The full audit with zero diplomacy. Blunt, shareable, and honest about what to fix first.']];
+  const route={optimize:'optimize',split:'abtest',audit:'audit',link:'urlaudit',clock:'besttime',money:'money',globe:'languages',fire:'roast'};
+  g.innerHTML=F.map(([k,t,d])=>`<div class="feat" onclick="openApp('${route[k]}')"><div class="ic">${svg(k)}</div><h3>${t}</h3><p>${d}</p><div class="go">Open ${svg('arrow',2)}</div></div>`).join('');
 }
 function paintCompare(){
   const b=$('#cmpBody');if(!b)return;
   const Y=`<span class="yes">${svg('check',2)}</span>`,N=`<span class="no">${svg('x',2)}</span>`,P=t=>`<span class="part">${t}</span>`;
-  const R=[['Niche-calibrated title scoring',P('global'),P('global'),Y],
-  ['Thumbnail auto-grade',Y,'editor only',Y],
-  ['Deep retention diagnostics','partial','partial',Y],
-  ['Your data stays in your browser',N,N,Y],
-  ['No account / no extension',N,N,Y],
-  ['Historical scrape of any channel',Y,Y,P('not offline')],
-  ['Price','$24/mo','$23.99/mo',`<span class="yes">free</span>`]];
-  b.innerHTML=R.map(r=>`<tr><td>${r[0]}</td><td class="c">${r[1]}</td><td class="c">${r[2]}</td><td class="c">${r[3]}</td></tr>`).join('');
+  const R=[
+  ['Title / thumbnail scoring',Y,N,N,N,Y],
+  ['A/B title &amp; thumbnail testing',Y,N,N,P('beta'),Y],
+  ['Channel audit on your own data',P('partial'),N,N,N,Y],
+  ['Title / thumbnail reasoning, not just a score',P('score only'),N,N,N,Y],
+  ['Earnings / money tools',N,P('basic'),Y,N,Y],
+  ['Multi-language strategy',N,N,N,N,Y],
+  ['Your data stays in your browser',N,N,N,N,Y],
+  ['No account / no extension',N,N,N,N,Y],
+  ['Historical scrape of any channel',N,Y,Y,P('trends'),P('not offline')],
+  ['Price',`$24.99/mo`,`from $4.50/mo`,`$49.99/mo`,`paid`,`<span class="yes">free</span>`]];
+  b.innerHTML=R.map(r=>`<tr><td>${r[0]}</td><td class="c">${r[1]}</td><td class="c">${r[2]}</td><td class="c">${r[3]}</td><td class="c">${r[4]}</td><td class="c us">${r[5]}</td></tr>`).join('');
 }
 
 /* ============ APP ROUTER ============ */
 let CSV_STATE=null,CHARTS=[];
-const NAV=[['optimize','Optimize',svg('optimize'),'tools'],['research','Research',svg('research'),'tools'],['channelopt','Channel Optimization',svg('check'),'tools'],['money','Money Calculator',svg('money'),'tools'],['worth','Watch-time → Money',svg('money'),'tools'],
-  ['audit','Audit',svg('audit'),'your data'],['urlaudit','Audit by URL',svg('link'),'your data'],['roast','Roast My Channel',svg('fire'),'your data'],
+const NAV=[['optimize','Optimize',svg('optimize'),'tools'],['abtest','A/B Test',svg('split'),'tools'],['research','Research',svg('research'),'tools'],['tags','Tag Suggestions',svg('tag'),'tools'],['besttime','Best Time to Publish',svg('clock'),'tools'],['channelopt','Channel Optimization',svg('check'),'tools'],['money','Money Calculator',svg('money'),'tools'],['worth','Watch-time → Money',svg('money'),'tools'],['languages','Language Opportunity',svg('globe'),'tools'],
+  ['plan','Growth Plan',svg('rocket'),'your data'],['audit','Audit',svg('audit'),'your data'],['urlaudit','Audit by URL',svg('link'),'your data'],['roast','Roast My Channel',svg('fire'),'your data'],
   ['creators','Top Creators',svg('crown'),'explore'],['niches','By Niche',svg('grid'),'explore'],
   ['compare','Compare',svg('compare'),'live'],['settings','Settings',svg('settings'),'']];
-const ATITLE={optimize:'Optimize <small>pre-publish · no data</small>',research:'Research <small>keywords &amp; tags</small>',channelopt:'Channel Optimization <small>scored checklist</small>',money:'Money Calculator <small>earnings estimator</small>',worth:'Watch-time → Money <small>what retention is worth</small>',audit:'Audit <small>your Studio export</small>',urlaudit:'Audit by URL <small>public data · needs key</small>',roast:'Roast My Channel <small>blunt audit</small>',creators:'Top Creators <small>by subscribers</small>',niches:'Top Creators by Niche',compare:'Compare <small>live mode</small>',settings:'Settings'};
+const ATITLE={optimize:'Optimize <small>pre-publish · no data</small>',abtest:'A/B Test <small>title &amp; thumbnail head-to-head</small>',research:'Research <small>keywords &amp; tags</small>',tags:'Tag Suggestions <small>niche-aware</small>',besttime:'Best Time to Publish <small>from your data</small>',channelopt:'Channel Optimization <small>scored checklist</small>',money:'Money Calculator <small>earnings estimator</small>',worth:'Watch-time → Money <small>what retention is worth</small>',languages:'Language Opportunity <small>expand your reach</small>',plan:'Growth Plan <small>your ranked next steps</small>',audit:'Audit <small>your Studio export</small>',urlaudit:'Audit by URL <small>public data · needs key</small>',roast:'Roast My Channel <small>blunt audit</small>',creators:'Top Creators <small>by subscribers</small>',niches:'Top Creators by Niche',compare:'Compare <small>live mode</small>',settings:'Settings'};
 
 function paintRail(active){
   const r=$('#rnav');let html='',lastGrp=null;
@@ -567,7 +824,7 @@ function route(name){
   destroyCharts();paintRail(name);
   const t=$('#appTitle');if(t)t.innerHTML=ATITLE[name]||name;
   const v=$('#appView');if(!v)return;v.className='app-view fadein';void v.offsetWidth;v.className='app-view';
-  try{({optimize:vOptimize,research:vResearch,channelopt:vChannelOpt,money:vMoney,worth:vWorth,audit:vAudit,urlaudit:vUrlAudit,roast:vRoast,creators:vCreators,niches:vNiches,compare:vCompare,settings:vSettings}[name]||vOptimize)();}
+  try{({optimize:vOptimize,abtest:vABTest,research:vResearch,tags:vTags,besttime:vBestTime,channelopt:vChannelOpt,money:vMoney,worth:vWorth,languages:vLanguages,plan:vPlan,audit:vAudit,urlaudit:vUrlAudit,roast:vRoast,creators:vCreators,niches:vNiches,compare:vCompare,settings:vSettings}[name]||vOptimize)();}
   catch(e){v.innerHTML=`<div class="panel"><div class="empty">Something went wrong rendering this view. <br><span class="dim">${esc(e.message)}</span></div></div>`;console.error(e);}
 }
 window.openApp=k=>{$('#landing').classList.add('off');$('#app').classList.add('on');window.scrollTo(0,0);route(k||'optimize');};
@@ -579,8 +836,8 @@ function vOptimize(){
   $('#appView').innerHTML=`
   <div class="vhead"><h1>Optimize before you publish</h1><p>Live heuristic engines — no upload, no key. Type and watch the score move.</p></div>
   <div class="panel"><div class="panel-h">${svg('optimize')}<h3>Title analyzer</h3></div>
-  <div class="panel-sub">Scored on length, power words, specificity, front-loading and curiosity — tuned for DevOps search behavior.</div>
-  <input class="inp" id="tIn" placeholder="e.g. How I fixed a Kubernetes CrashLoop in production (5 steps)">
+  <div class="panel-sub">Scored on length, power words, specificity, front-loading and curiosity — tuned for how viewers actually click and search.</div>
+  <input class="inp" id="tIn" placeholder="e.g. 7 Beginner Mistakes That Ruin Your First Video">
   <div id="tOut" style="margin-top:18px"></div></div>
   <div class="panel"><div class="panel-h">${svg('thumb')}<h3>Thumbnail auditor</h3></div>
   <div class="panel-sub">Drop a thumbnail — contrast, detail density and a real mobile preview, graded on-canvas. Nothing uploaded.</div>
@@ -588,7 +845,7 @@ function vOptimize(){
   <input type="file" id="thFile" accept="image/*" class="hide"><div id="thOut"></div></div>
   <div class="panel"><div class="panel-h">${svg('hook')}<h3>Hook builder</h3></div>
   <div class="panel-sub">The 0:18 retention cliff is the #1 killer. This scaffolds the first 15 seconds to beat it.</div>
-  <input class="inp" id="hIn" placeholder="What does the video teach? e.g. deploy Terraform to AWS">
+  <input class="inp" id="hIn" placeholder="What's the video about? e.g. editing in CapCut">
   <div id="hOut" style="margin-top:16px"></div></div>`;
 
   const tIn=$('#tIn'),tOut=$('#tOut');
@@ -642,13 +899,13 @@ function gradeThumb(file){
 /* ---------- RESEARCH ---------- */
 function vResearch(){
   $('#appView').innerHTML=`
-  <div class="vhead"><h1>Keyword &amp; tag research</h1><p>Niche-aware generation for cloud/DevOps. We don't invent search-volume numbers we can't source.</p></div>
+  <div class="vhead"><h1>Keyword &amp; tag research</h1><p>Smart tag generation for any niche. We don't invent search-volume numbers we can't source.</p></div>
   <div class="panel"><div class="panel-h">${svg('tag')}<h3>Tag generator</h3></div>
   <div class="panel-sub">Enter your core topic. We expand with niche co-occurrence (k8s → kubectl, helm…) and proven modifiers. Click a tag to copy.</div>
-  <input class="inp" id="tagIn" placeholder="e.g. kubernetes networking"><div class="tags" id="tagOut"></div></div>
+  <input class="inp" id="tagIn" placeholder="e.g. budget travel tips"><div class="tags" id="tagOut"></div></div>
   <div class="panel"><div class="panel-h">${svg('research')}<h3>Title idea spinner</h3></div>
   <div class="panel-sub">Templates that score well, filled with your topic and auto-scored. Take the winner to the Optimize tab.</div>
-  <input class="inp" id="idIn" placeholder="e.g. terraform state"><div id="idOut" style="margin-top:14px"></div></div>`;
+  <input class="inp" id="idIn" placeholder="e.g. morning routine"><div id="idOut" style="margin-top:14px"></div></div>`;
   const tagIn=$('#tagIn'),tagOut=$('#tagOut');
   tagIn.addEventListener('input',()=>{
     const t=buildTags(tagIn.value);
@@ -658,7 +915,7 @@ function vResearch(){
   idIn.addEventListener('input',()=>{
     const t=idIn.value.trim();if(!t){idOut.innerHTML='';return;}
     const T=t.charAt(0).toUpperCase()+t.slice(1);
-    const ideas=[`How to ${t} in production (the right way)`,`${T} explained in 10 minutes`,`5 ${t} mistakes that break everything`,`Why your ${t} setup is wrong`,`${T}: from zero to deploy`];
+    const ideas=[`How to ${t} (the right way)`,`${T} explained in 10 minutes`,`5 ${t} mistakes everyone makes`,`Why your ${t} isn't working`,`${T}: a beginner's guide`];
     idOut.innerHTML=ideas.map(i=>{const s=scoreTitle(i).score,c=s>=70?'good':s>=45?'decay':'gem';return `<div class="ideaitem"><span class="it">${esc(i)}</span><span class="pill ${c}">${s}</span></div>`;}).join('');
   });
 }
@@ -702,7 +959,7 @@ function vAudit(){
   const isURL=source==='url';
   const naCard=(l)=>`<div class="mcard"><div class="l">${l}</div><div class="n dim">—</div><div class="d dim">private · needs CSV</div></div>`;
   $('#appView').innerHTML=`
-  <div class="vhead" style="display:flex;justify-content:space-between;align-items:flex-end"><div><h1>${channel?esc(channel.title):'Channel audit'}</h1><p>${isURL?`${fmt(channel.subs)} subscribers · ${s.count} recent videos · public data`:`${s.count} videos · ${fmt(s.totalViews)} total views · benchmarked vs DevOps niche`}</p></div>
+  <div class="vhead" style="display:flex;justify-content:space-between;align-items:flex-end"><div><h1>${channel?esc(channel.title):'Channel audit'}</h1><p>${isURL?`${fmt(channel.subs)} subscribers · ${s.count} recent videos · public data`:`${s.count} videos · ${fmt(s.totalViews)} total views · benchmarked vs typical YouTube ranges`}</p></div>
   <button class="appbtn gho" onclick="resetCSV()">${isURL?'Audit another':'Load different file'}</button></div>
   ${isURL?`<div class="lockbar" style="margin-bottom:18px;border-left-color:var(--blue)">${svg('shield',1.8)}<div><span><b>Public audit.</b> CTR, retention and average view duration aren't exposed by any public API — only you can export those from Studio as a CSV. The metrics below are everything a channel URL can honestly provide.</span></div></div>`:''}
   <div class="grid4" style="margin-bottom:18px">
@@ -871,23 +1128,27 @@ function vMoney(){
 
 /* ---------- TOP CREATORS ---------- */
 function vCreators(){
-  const max=TOP_SUBS[0][1];
+  const sorted=[...TOP_SUBS].sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0][1];
   $('#appView').innerHTML=`
-  <div class="vhead"><h1>Top creators by subscribers</h1><p>Most-subscribed channels worldwide · snapshot as of ${SNAPSHOT_DATE}. Bundled offline — not a live feed.</p></div>
+  <div class="vhead"><h1>Top ${sorted.length} creators by subscribers</h1><p>Most-subscribed channels worldwide · snapshot as of ${SNAPSHOT_DATE}. Bundled offline — not a live feed.</p></div>
   <div class="panel" style="padding:8px 0"><table class="dtbl"><thead><tr><th style="padding-left:18px">#</th><th>Channel</th><th>Niche</th><th class="r" style="padding-right:18px">Subscribers</th></tr></thead><tbody>
-  ${TOP_SUBS.map((c,i)=>`<tr><td style="padding-left:18px" class="dim">${i+1}</td><td><b>${c[3]} ${esc(c[0])}</b><div style="height:5px;width:${Math.round(c[1]/max*120)}px;background:var(--mint);border-radius:3px;margin-top:5px;opacity:.7"></div></td><td class="dim">${c[2]}</td><td class="r" style="padding-right:18px">${c[1]}M</td></tr>`).join('')}
+  ${sorted.map((c,i)=>`<tr><td style="padding-left:18px" class="dim">${i+1}</td><td><b>${c[3]} ${esc(c[0])}</b><div style="height:5px;width:${Math.round(c[1]/max*120)}px;background:var(--mint);border-radius:3px;margin-top:5px;opacity:.7"></div></td><td class="dim">${c[2]}</td><td class="r" style="padding-right:18px">${c[1]}M</td></tr>`).join('')}
   </tbody></table></div>
-  <div class="panel"><div class="panel-sub" style="margin:0">Subscriber counts are rounded snapshots and shift constantly. For live figures, the Compare tab (with your API key) pulls real-time numbers for any channel.</div></div>`;
+  <div class="panel"><div class="panel-sub" style="margin:0">Subscriber counts are rounded snapshots and shift constantly; the top ~40 are high-confidence, lower ranks vary more by source. For live figures, the Compare tab (with your API key) pulls real-time numbers for any channel.</div></div>`;
 }
 
 /* ---------- BY NICHE ---------- */
 function vNiches(){
+  const entries=Object.entries(NICHE_CREATORS);
   $('#appView').innerHTML=`
-  <div class="vhead"><h1>Top creators by niche</h1><p>Leaders in key categories · ${SNAPSHOT_DATE}. Cloud/DevOps first — the channels worth studying for your own.</p></div>
-  ${Object.entries(NICHE_CREATORS).map(([niche,list])=>`
-  <div class="panel"><div class="panel-h">${svg('grid')}<h3>${niche}</h3></div><div style="margin-top:6px">
+  <div class="vhead"><h1>Top creators across ${entries.length} niches</h1><p>Category leaders · ${SNAPSHOT_DATE}. Browse any category — tap a chip to jump to it.</p></div>
+  <div class="panel" style="padding:14px 16px"><div style="display:flex;flex-wrap:wrap;gap:8px">${entries.map(([n],i)=>`<span class="t" onclick="document.getElementById('niche${i}').scrollIntoView({behavior:'smooth'})" style="cursor:pointer">${esc(n)}</span>`).join('')}</div></div>
+  ${entries.map(([niche,list],i)=>`
+  <div class="panel" id="niche${i}"><div class="panel-h">${svg('grid')}<h3>${niche}</h3></div><div style="margin-top:6px">
   ${list.map(c=>`<div class="ideaitem"><div class="it"><b>${esc(c[0])}</b><span class="dim" style="display:block;font-size:12px">${esc(c[2])}</span></div><span class="pill steady">${c[1]>=1?c[1]+'M':Math.round(c[1]*1000)+'K'}</span></div>`).join('')}
-  </div></div>`).join('')}`;
+  </div></div>`).join('')}
+  <div class="panel"><div class="panel-sub" style="margin:0">A curated set of major categories, not an exhaustive list of every possible niche — and figures are rounded snapshots. Every major category is covered, from Gaming and Music to Finance and Tech.</div></div>`;
 }
 
 /* ---------- URL AUDIT (needs key) ---------- */
@@ -895,7 +1156,7 @@ function vUrlAudit(){
   const key=localStorage.getItem('yt_api_key');
   $('#appView').innerHTML=`
   <div class="vhead"><h1>Audit any channel by URL</h1><p>Public data for any channel — subscribers, video performance, upload cadence, title scoring. ${key?'':'Needs your YouTube Data API key.'}</p></div>
-  ${key?'':`<div class="lockbar">${svg('lock',1.8)}<div><b>Add your API key to enable this.</b> <span>Public channel data comes from the YouTube Data API, which needs a key. We never bundle one. Add yours in Settings — it stays in this browser and uses your quota. <b style="color:var(--mint);cursor:pointer" onclick="route('settings')">Open Settings →</b></span></div></div>`}
+  ${key?'':`<div class="lockbar">${svg('lock',1.8)}<div><b>Add a free API key to enable this — takes 2 minutes.</b> <span>Looking up any channel by name or URL needs the YouTube Data API, which requires a key. We never bundle one (it would get stolen). Our Settings page walks you through getting one step by step, with a button that tests it for you.</span><div style="margin-top:11px"><button class="appbtn" onclick="route('settings')" style="font-size:13px;padding:8px 15px">${svg('key',1.8)} Set up my key</button></div></div></div>`}
   <div class="panel"><div class="panel-h">${svg('link')}<h3>Channel URL, @handle, or ID</h3></div>
   <div class="panel-sub">Paste any of: youtube.com/@handle · youtube.com/channel/UC… · or just the @handle.</div>
   <div style="display:flex;gap:10px"><input class="inp" id="urlIn" placeholder="https://youtube.com/@TechWorldwithNana" ${key?'':'disabled'}><button class="appbtn" id="urlGo" ${key?'':'disabled'} style="white-space:nowrap">Audit</button></div>
@@ -907,22 +1168,243 @@ function vUrlAudit(){
     out.innerHTML='<div class="empty">Fetching public data…</div>';btn.disabled=true;
     try{
       const r=await urlAudit($('#urlIn').value,key);
-      const c=r.channel;
+      const c=r.channel;const sg=r.suggestions;
+      const sev=s=>s>=80?'fail':s>=50?'warn':'pass';
       out.innerHTML=`<div style="margin-top:20px">
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">${c.thumb?`<img src="${c.thumb}" style="width:54px;height:54px;border-radius:50%;border:1px solid var(--line)">`:''}<div><div style="font-size:18px;font-weight:600">${esc(c.title)}</div><div class="dim" style="font-size:13px">${fmt(c.subs)} subscribers · ${fmt(c.videos)} videos · ${fmt(c.views)} total views</div></div></div>
-      <div class="grid3" style="margin-bottom:16px">
+      <div class="grid4" style="margin-bottom:16px">
         <div class="mcard"><div class="l">Avg title score</div><div class="n ${r.avgTitleScore>=70?'mint':r.avgTitleScore>=45?'amber':'rose'}">${r.avgTitleScore}</div><div class="d dim">recent uploads</div></div>
         <div class="mcard"><div class="l">Upload cadence</div><div class="n">${r.cadence!=null?r.cadence.toFixed(1):'—'}</div><div class="d dim">days between</div></div>
-        <div class="mcard"><div class="l">Recent reach</div><div class="n">${fmt(r.vids.reduce((s,v)=>s+v.views,0))}</div><div class="d dim">last ${r.vids.length} videos</div></div>
+        <div class="mcard"><div class="l">Consistency</div><div class="n ${r.consistency>=70?'mint':r.consistency>=50?'amber':'rose'}">${r.consistency!=null?r.consistency:'—'}</div><div class="d dim">schedule regularity</div></div>
+        <div class="mcard"><div class="l">Engagement</div><div class="n ${r.avgEng>=2?'mint':r.avgEng>=1?'amber':'rose'}">${r.avgEng.toFixed(1)}%</div><div class="d dim">likes ÷ views</div></div>
       </div>
+
+      <div class="panel" style="background:var(--bg)"><div class="panel-h">${svg('fire')}<h3>Priority fixes</h3></div><div class="panel-sub">Ranked by impact — tackle the top ones first.</div>
+      ${sg.fixes.length?sg.fixes.map((f,i)=>`<div class="row"><div class="ic ${sev(f[0])}">${svg(sev(f[0])==='pass'?'check':sev(f[0])==='warn'?'warn':'x',1.8)}</div><div class="body"><b>${i+1}. ${f[1]}</b><span style="color:var(--txt-2)">${f[2]}</span></div></div>`).join(''):'<div class="empty">No major issues found in the public signals — this channel is well run.</div>'}</div>
+
+      ${sg.perVideo.length?`<div class="panel" style="background:var(--bg)"><div class="panel-h">${svg('optimize')}<h3>Per-video suggestions</h3></div><div class="panel-sub">Specific videos worth revisiting and why.</div>
+      ${sg.perVideo.map(v=>`<div class="row"><div class="body"><b>${esc(v.title.slice(0,52))}</b><span style="color:var(--txt-2)">${fmt(v.views)} views · ${v.tips.join(' · ')}</span></div></div>`).join('')}</div>`:''}
+
+      <div class="panel" style="background:var(--bg)"><div class="panel-h">${svg('grid')}<h3>Channel strategy</h3></div>
+      ${sg.strategy.map(s=>`<div class="row"><div class="ic info">${svg('check',1.8)}</div><div class="body"><span style="color:var(--txt-2)">${esc(s)}</span></div></div>`).join('')}</div>
+
+      <div class="panel" style="background:var(--bg)"><div class="panel-h">${svg('audit')}<h3>Recent videos</h3></div>
       <div style="overflow-x:auto"><table class="dtbl"><thead><tr><th>Recent video</th><th class="r">Views</th><th class="r">Likes</th><th class="r">Title</th><th class="r">Aging</th></tr></thead><tbody>
       ${r.vids.sort((a,b)=>b.views-a.views).map(v=>{const cl=v.tag==='aging well'?'good':v.tag==='decaying'?'decay':'steady';return `<tr><td>${esc(v.title.slice(0,46))}</td><td class="r">${fmt(v.views)}</td><td class="r">${fmt(v.likes)}</td><td class="r"><span class="pill ${v.titleScore>=70?'good':v.titleScore>=45?'decay':'gem'}">${v.titleScore}</span></td><td class="r"><span class="pill ${cl}">${v.tag}</span></td></tr>`;}).join('')}
-      </tbody></table></div></div>`;
+      </tbody></table></div></div>
+      <div class="panel-sub" style="text-align:center">Note: CTR, retention and watch-time are private. For those, the channel owner can use <b style="color:var(--mint);cursor:pointer" onclick="route('audit')">Audit by CSV</b>.</div>
+      </div>`;
     }catch(e){out.innerHTML=`<div class="empty" style="color:var(--rose);margin-top:16px">${esc(e.message)}</div>`;}
     btn.disabled=false;
   };
   $('#urlGo').onclick=go;
   $('#urlIn').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+}
+
+/* ---------- LANGUAGE OPPORTUNITY ---------- */
+function vLanguages(){
+  const recs=langAdvice();
+  const top=recs.slice(0,5);
+  $('#appView').innerHTML=`
+  <div class="vhead"><h1>Language opportunity 🌍</h1><p>Most channels publish in one language only, leaving large multilingual audiences untapped. This ranks 14 languages by reach, earnings and competition — with extra weight for India's large multilingual market. Strategic guidance, not a per-channel demand measurement.</p></div>
+
+  <div class="panel"><div class="panel-h">${svg('globe')}<h3>Your top 5 expansion targets</h3></div><div class="panel-sub">Ranked by a blend of audience size, low competition, RPM, and regional edge.</div>
+  ${top.map((l,i)=>`<div class="row"><div class="ic"><div style="width:26px;height:26px;border-radius:50%;background:var(--surf-2);border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mint)">${i+1}</div></div>
+  <div class="body"><b>${l.name} <span class="dim" style="font-weight:400">${l.native} · ${l.region}</span></b><span style="color:var(--txt-2)">${l.note}</span><span style="color:var(--txt-3);margin-top:4px">→ ${l.fmtRec}</span></div>
+  <div style="text-align:right;flex-shrink:0"><span class="pill ${l.why[0]==='pass'?'good':'decay'}">${l.score}</span></div></div>`).join('')}</div>
+
+  <div class="panel"><div class="panel-h">${svg('grid')}<h3>All 14 languages</h3></div><div class="panel-sub">Reach = YouTube-relevant speakers. RPM = relative earning power. Competition lower is better.</div>
+  <div style="overflow-x:auto"><table class="dtbl"><thead><tr><th>Language</th><th class="r">Reach</th><th class="r">RPM</th><th class="r">Competition</th><th class="r">Effort</th><th class="r">Score</th></tr></thead><tbody>
+  ${recs.map(l=>`<tr><td><b>${l.name}</b> <span class="dim">${l.native}</span>${l.grp==='india'?' <span class="pill steady" style="font-size:10px">your edge</span>':''}</td>
+  <td class="r">${l.sp}M</td>
+  <td class="r"><span class="${l.rpm>=4?'mint':l.rpm>=3?'':'dim'}">${RPM_TIER[l.rpm]}</span></td>
+  <td class="r"><span class="${l.comp<=2?'mint':l.comp>=4?'rose':'amber'}">${COMP_LABEL[l.comp]}</span></td>
+  <td class="r dim">${l.effort}</td>
+  <td class="r"><span class="pill ${l.score>=70?'good':l.score>=50?'decay':'steady'}">${l.score}</span></td></tr>`).join('')}
+  </tbody></table></div></div>
+
+  <div class="panel"><div class="panel-h">${svg('check')}<h3>How to expand — cheapest to most committed</h3></div>
+  <div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>1. Translated titles + descriptions</b><span>Lowest effort, instant. YouTube lets you add translations per language — captures search in that language with zero new production.</span></div></div>
+  <div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>2. Subtitles / closed captions</b><span>Upload SRTs (or auto-generate then correct). Opens the video to non-English viewers and boosts accessibility + SEO.</span></div></div>
+  <div class="row"><div class="ic warn">${svg('warn',1.8)}</div><div class="body"><b>3. Multi-language audio tracks</b><span>YouTube's dubbing feature lets one video carry multiple audio tracks. More effort (voiceover per language) but keeps everything on one video's momentum.</span></div></div>
+  <div class="row"><div class="ic warn">${svg('warn',1.8)}</div><div class="body"><b>4. Dedicated regional channel</b><span>Most committed. Worth it only when a language shows real traction — splits your effort but lets you tailor fully to that audience.</span></div></div></div>
+
+  <div class="panel"><div class="panel-sub" style="margin:0">Rankings come from bundled knowledge (speaker base, niche translatability, RPM tier) — not live per-channel demand data. Use them to <i>prioritize</i> experiments, then let your own results confirm. The Indian languages are flagged as your edge: your roots make that content more authentic than a generalist could produce.</div></div>`;
+}
+
+/* ---------- A/B TEST (title + thumbnail head-to-head) ---------- */
+function vABTest(){
+  $('#appView').innerHTML=`
+  <div class="vhead"><h1>A/B test 🆚</h1><p>Pit your variants against each other before you publish. vidIQ &amp; TubeBuddy charge for this — here it's free and instant. (Heuristic prediction, not live split-testing.)</p></div>
+  <div class="panel"><div class="panel-h">${svg('split')}<h3>Title showdown</h3></div><div class="panel-sub">Enter 2–4 title variants. We score each and crown a winner with the reasoning.</div>
+  <div id="abTitles"></div>
+  <button class="appbtn gho" id="abAdd" style="margin-top:10px">+ Add variant</button>
+  <div id="abTitleOut" style="margin-top:18px"></div></div>
+  <div class="panel"><div class="panel-h">${svg('thumb')}<h3>Thumbnail showdown</h3></div><div class="panel-sub">Drop two thumbnails — we grade contrast, detail density and mobile readability side by side.</div>
+  <div class="grid2"><div class="drop" id="abThA" style="padding:28px 16px">${svg('thumb',1.5)}<h3>Thumbnail A</h3><p>drop or click</p></div><div class="drop" id="abThB" style="padding:28px 16px">${svg('thumb',1.5)}<h3>Thumbnail B</h3><p>drop or click</p></div></div>
+  <input type="file" id="abFileA" accept="image/*" class="hide"><input type="file" id="abFileB" accept="image/*" class="hide">
+  <div id="abThumbOut" style="margin-top:16px"></div></div>`;
+
+  // titles
+  let variants=['',''];
+  const renderInputs=()=>{
+    $('#abTitles').innerHTML=variants.map((v,i)=>`<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center"><span class="mono dim" style="width:18px">${String.fromCharCode(65+i)}</span><input class="inp abT" data-i="${i}" placeholder="Title variant ${String.fromCharCode(65+i)}" value="${esc(v)}">${variants.length>2?`<button class="appbtn gho abDel" data-i="${i}" style="padding:8px 11px">✕</button>`:''}</div>`).join('');
+    document.querySelectorAll('.abT').forEach(inp=>inp.addEventListener('input',e=>{variants[+e.target.dataset.i]=e.target.value;scoreAB();}));
+    document.querySelectorAll('.abDel').forEach(b=>b.onclick=()=>{variants.splice(+b.dataset.i,1);renderInputs();scoreAB();});
+  };
+  const scoreAB=()=>{
+    const scored=variants.map((v,i)=>({label:String.fromCharCode(65+i),text:v,r:scoreTitle(v)})).filter(x=>x.text.trim());
+    if(scored.length<2){$('#abTitleOut').innerHTML='<div class="empty">Enter at least two variants to compare.</div>';return;}
+    const max=Math.max(...scored.map(s=>s.r.score));
+    scored.sort((a,b)=>b.r.score-a.r.score);
+    $('#abTitleOut').innerHTML=scored.map((s,idx)=>{
+      const win=s.r.score===max;const col=s.r.score>=70?'var(--mint)':s.r.score>=45?'var(--amber)':'var(--rose)';
+      return `<div class="row" style="${win?'background:rgba(61,220,151,.06);margin:0 -10px;padding:12px 10px;border-radius:8px':''}"><div class="ic" style="font-family:var(--mono);font-weight:600;color:${col}">${s.r.score}</div><div class="body"><b>${win?'🏆 ':''}${esc(s.text)}</b><span>${s.r.len} chars · ${s.r.pw} power words · ${win?'<span class="mint">winner — '+ (s.r.notes.find(n=>n[0]==='pass')?.[2]||'strongest overall')+'</span>':'try the Optimize tab to close the gap'}</span></div></div>`;
+    }).join('');
+  };
+  $('#abAdd').onclick=()=>{if(variants.length<4){variants.push('');renderInputs();}};
+  renderInputs();scoreAB();
+
+  // thumbnails
+  const slots={A:null,B:null};
+  const wire=(drop,file,slot)=>{
+    const dz=$(drop),fi=$(file);
+    dz.onclick=()=>fi.click();
+    dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};dz.ondragleave=()=>dz.classList.remove('over');
+    dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files[0])gradeAB(e.dataTransfer.files[0],slot);};
+    fi.onchange=e=>{if(e.target.files[0])gradeAB(e.target.files[0],slot);};
+  };
+  const gradeAB=(f,slot)=>{const img=new Image();img.onload=()=>{
+    const cv=document.createElement('canvas');cv.width=160;cv.height=90;const ctx=cv.getContext('2d');ctx.drawImage(img,0,0,160,90);
+    const d=ctx.getImageData(0,0,160,90).data,n=160*90,L=[];let sum=0,sum2=0;
+    for(let i=0;i<d.length;i+=4){const l=.299*d[i]+.587*d[i+1]+.114*d[i+2];L.push(l);sum+=l;sum2+=l*l;}
+    const mean=sum/n,sd=Math.sqrt(Math.max(0,sum2/n-mean*mean));
+    let edges=0;for(let y=1;y<90;y++)for(let x=1;x<160;x++){const i=y*160+x;if(Math.abs(L[i]-L[i-1])>40||Math.abs(L[i]-L[i-160])>40)edges++;}
+    const ep=Math.round(edges/n*100);
+    const score=Math.round(Math.min(100,(sd>55?40:sd>35?25:10)+(ep>=6&&ep<=22?40:20)+(img.width>=1280?20:10)));
+    slots[slot]={src:img.src,sd:Math.round(sd),ep,score,w:img.width,h:img.height};
+    renderThumbs();
+  };img.src=URL.createObjectURL(f);};
+  const renderThumbs=()=>{
+    if(!slots.A&&!slots.B)return;
+    const cells=['A','B'].map(k=>{const s=slots[k];if(!s)return `<div class="mcard"><div class="l">Thumbnail ${k}</div><div class="empty" style="padding:14px">not loaded</div></div>`;
+      const win=slots.A&&slots.B&&s.score===Math.max(slots.A.score,slots.B.score);
+      return `<div class="mcard" style="${win?'border-color:var(--mint)':''}"><div class="l">${win?'🏆 ':''}Thumbnail ${k} — score ${s.score}</div><img src="${s.src}" style="width:100%;border-radius:6px;border:1px solid var(--line);margin:8px 0"><div style="font-size:12px;color:var(--txt-3)">contrast ${s.sd} · density ${s.ep}% · ${s.w}×${s.h}</div></div>`;}).join('');
+    $('#abThumbOut').innerHTML=`<div class="grid2">${cells}</div>`;
+  };
+  wire('#abThA','#abFileA','A');wire('#abThB','#abFileB','B');
+}
+
+/* ---------- TAG SUGGESTIONS (dedicated, richer) ---------- */
+function vTags(){
+  $('#appView').innerHTML=`
+  <div class="vhead"><h1>Tag suggestions 🏷️</h1><p>Niche-aware tags with co-occurrence expansion. A paid feature elsewhere — free here. Click any tag to copy; "Copy all" grabs the set.</p></div>
+  <div class="panel"><div class="panel-h">${svg('tag')}<h3>Generate tags</h3></div><div class="panel-sub">Enter your video's core topic. We expand with related terms and proven modifiers.</div>
+  <input class="inp" id="tgIn" placeholder="e.g. healthy meal prep">
+  <div id="tgOut"></div></div>
+  <div class="panel"><div class="panel-sub" style="margin:0">Tags matter less than they used to for ranking, but still help YouTube understand context and catch misspellings. Keep 5–15 relevant ones; don't stuff. Your title and description carry far more SEO weight.</div></div>`;
+  const out=$('#tgOut');
+  $('#tgIn').addEventListener('input',e=>{
+    const tags=buildTags(e.target.value);
+    if(!tags.length){out.innerHTML='';return;}
+    out.innerHTML=`<div class="tags" id="tgTags">${tags.map(t=>`<span class="t" data-t="${esc(t)}">${esc(t)}</span>`).join('')}</div>
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center"><button class="appbtn gho" id="tgCopy">Copy all (${tags.length})</button><span class="dim" style="font-size:12px">${tags.join(', ').length} characters</span></div>`;
+    out.querySelectorAll('.t').forEach(s=>s.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(s.dataset.t);s.style.borderColor='var(--mint)';s.style.color='var(--mint)';});
+    $('#tgCopy').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(tags.join(', '));$('#tgCopy').textContent='Copied ✓';setTimeout(()=>{const b=$('#tgCopy');if(b)b.textContent='Copy all ('+tags.length+')';},1200);};
+  });
+}
+
+/* ---------- BEST TIME TO PUBLISH ---------- */
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function bestTimeFromCSV(vids){
+  // need publish dates; bucket by day-of-week, score by avg views
+  const withDates=vids.filter(v=>v.pub&&!isNaN(v.pub));
+  if(withDates.length<4)return null;
+  const byDow={};for(let i=0;i<7;i++)byDow[i]={n:0,views:0};
+  withDates.forEach(v=>{const d=v.pub.getDay();byDow[d].n++;byDow[d].views+=v.views;});
+  const rows=DOW.map((name,i)=>({day:name,n:byDow[i].n,avg:byDow[i].n?byDow[i].views/byDow[i].n:0}));
+  const maxAvg=Math.max(...rows.map(r=>r.avg))||1;
+  return{rows,maxAvg,total:withDates.length};
+}
+function vBestTime(){
+  const data=CSV_STATE&&CSV_STATE.vids?bestTimeFromCSV(CSV_STATE.vids):null;
+  $('#appView').innerHTML=`
+  <div class="vhead"><h1>Best time to publish ⏰</h1><p>${data?'Based on YOUR channel\'s actual upload history — which days have earned you the most views per video.':'Two modes: upload your CSV to see when <i>your</i> videos perform best, or use the niche guidance below.'}</p></div>
+  ${data?`<div class="panel"><div class="panel-h">${svg('clock')}<h3>Your performance by day</h3></div><div class="panel-sub">Average views per video, by publish day. From ${data.total} videos with dates.</div>
+  ${data.rows.map(r=>`<div style="display:flex;align-items:center;gap:12px;margin-bottom:9px"><span class="mono" style="width:38px;color:var(--txt-2)">${r.day}</span><div style="flex:1;height:24px;background:var(--bg);border-radius:6px;overflow:hidden;position:relative"><div style="height:100%;width:${Math.round(r.avg/data.maxAvg*100)}%;background:${r.avg===data.maxAvg?'var(--mint)':'var(--line-2)'};border-radius:6px;transition:width .4s"></div></div><span class="mono dim" style="width:70px;text-align:right;font-size:12px">${r.n?fmt(r.avg):'—'}</span></div>`).join('')}
+  <div class="panel-sub" style="margin-top:14px;margin-bottom:0">${(()=>{const best=data.rows.filter(r=>r.n).sort((a,b)=>b.avg-a.avg)[0];return best?`Your strongest day is <b class="mint">${best.day}</b> (${fmt(best.avg)} avg views/video). Worth concentrating uploads there — but small sample sizes can mislead, so treat it as a lean, not a law.`:'';})()}</div></div>
+  <div style="text-align:center;margin-bottom:18px"><button class="appbtn gho" onclick="resetCSV()">Use a different file</button></div>`:`
+  <div class="panel"><div class="panel-h">${svg('audit')}<h3>Analyze your own data</h3></div><div class="panel-sub">Upload your Studio CSV to see your actual best-performing days.</div>
+  <div class="drop" id="btDrop">${svg('clock',1.5)}<h3>Drop your Studio export (.csv)</h3><p>parsed locally, never uploaded</p></div><input type="file" id="btFile" accept=".csv" class="hide"></div>`}
+  <div class="panel"><div class="panel-h">${svg('globe')}<h3>Niche guidance (India + global defaults)</h3></div><div class="panel-sub">When no data is loaded, these are sensible defaults for a technical audience.</div>
+  <div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>Best days: Tuesday–Thursday</b><span>Tech audiences watch tutorials most mid-week. Weekends skew lower for educational content.</span></div></div>
+  <div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>Best time (India): 6–9 PM IST</b><span>After work hours. Publish a couple hours earlier so YouTube has indexed it before the evening surge.</span></div></div>
+  <div class="row"><div class="ic pass">${svg('check',1.8)}</div><div class="body"><b>For a global/US tech audience: 2–4 PM IST</b><span>Catches US morning (EST) plus India evening — the overlap window for a bilingual reach strategy.</span></div></div>
+  <div class="row"><div class="ic warn">${svg('warn',1.8)}</div><div class="body"><b>Consistency beats perfect timing</b><span>A predictable schedule the algorithm can rely on matters more than hitting an exact hour. Pick a slot you can keep.</span></div></div></div>`;
+  if(!data){const dz=$('#btDrop'),fi=$('#btFile');if(dz){
+    dz.onclick=()=>fi.click();
+    dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};dz.ondragleave=()=>dz.classList.remove('over');
+    dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files[0])loadCSV(e.dataTransfer.files[0],'besttime');};
+    fi.onchange=e=>{if(e.target.files[0])loadCSV(e.target.files[0],'besttime');};
+  }}
+}
+
+/* ---------- GROWTH PLAN (synthesis) ---------- */
+function buildGrowthPlan(s,vids){
+  const plan=[];  // {priority, title, why, action, payoff}
+  // 1. CTR / thumbnails
+  if(s.avgCtr!=null){
+    if(s.avgCtr<NICHE.ctr.poor)plan.push({p:95,area:'Thumbnails',title:'Fix your thumbnails first',why:`CTR is ${s.avgCtr.toFixed(1)}% vs the ${NICHE.ctr.good}% healthy benchmark — this is your single biggest bottleneck.`,action:'Redesign thumbnails with high contrast, large readable text, and one clear focal point. Test variants in the A/B tab.',payoff:'Lifting CTR from '+s.avgCtr.toFixed(1)+'% toward 6% could multiply impressions-to-views.'});
+    else if(s.avgCtr<NICHE.ctr.good)plan.push({p:65,area:'Thumbnails',title:'Sharpen your thumbnails',why:`CTR is ${s.avgCtr.toFixed(1)}% — workable but below the ${NICHE.ctr.good}% top tier.`,action:'A/B test bolder thumbnail variants. Small CTR gains compound across every impression.',payoff:'Each +1% CTR is a direct, proportional view increase.'});
+  }
+  // 2. Retention
+  if(s.avgRet!=null){
+    if(s.avgRet<NICHE.retention.poor)plan.push({p:90,area:'Retention',title:'Rebuild your intros',why:`${Math.round(s.avgRet)}% retention means most viewers leave early — the 0:18 cliff is hitting you hard.`,action:'Use the Hook Builder. State the payoff in the first 5 seconds, show the result on screen, cut the throat-clearing.',payoff:'Higher retention = more watch-time, more ad slots, and a stronger algorithmic signal.'});
+    else if(s.avgRet<NICHE.retention.good)plan.push({p:60,area:'Retention',title:'Tighten pacing',why:`${Math.round(s.avgRet)}% retention is decent but viewers drift mid-video.`,action:'Add pattern interrupts (chapters, b-roll, screen changes) every 30-60s.',payoff:'See the Watch-time → Money tab for the dollar value of each retention point.'});
+  }
+  // 3. Hidden gems
+  if(s.gems>0)plan.push({p:80,area:'Promotion',title:`Re-promote ${s.gems} hidden gem${s.gems>1?'s':''}`,why:`You have ${s.gems} video${s.gems>1?'s':''} with strong retention/CTR but low views — proven content that just needs eyes.`,action:'Add them to playlists, link from end screens of popular videos, and re-share on community tab. Zero new production.',payoff:'Fastest possible win — the content already works.'});
+  // 4. Titles
+  const avgTitle=Math.round(vids.reduce((a,v)=>a+scoreTitle(v.title).score,0)/vids.length);
+  if(avgTitle<50)plan.push({p:70,area:'Titles',title:'Rewrite weak titles',why:`Titles average ${avgTitle}/100 — they read like filenames, not hooks.`,action:'Front-load keywords, add numbers, inject curiosity. Score drafts in the Optimize tab before publishing.',payoff:'Better titles lift both search discovery and CTR.'});
+  else if(avgTitle<70)plan.push({p:45,area:'Titles',title:'Polish your titles',why:`Titles average ${avgTitle}/100 — serviceable but not magnetic.`,action:'Run each new title through the Optimize scorer; aim for 70+.',payoff:'Incremental CTR and search gains.'});
+  // 5. Cadence / decay
+  const decay=vids.filter(v=>v.tag==='decaying').length;
+  if(decay>vids.length*0.5)plan.push({p:50,area:'Catalog',title:'Refresh aging videos',why:`${decay} of ${vids.length} videos are losing velocity.`,action:'Update thumbnails and titles on ones that once performed; they may re-enter circulation.',payoff:'Revives dormant reach without new filming.'});
+  // 6. Best day (if dates available)
+  const bt=bestTimeFromCSV(vids);
+  if(bt){const best=bt.rows.filter(r=>r.n).sort((a,b)=>b.avg-a.avg)[0];if(best)plan.push({p:40,area:'Timing',title:`Concentrate uploads on ${best.day}`,why:`Your ${best.day} videos average ${fmt(best.avg)} views — your strongest day.`,action:`Schedule consistently on ${best.day}. Consistency matters more than the exact day.`,payoff:'Aligns releases with your audience\'s proven active window.'});}
+  // 7. Language (always relevant for India-based)
+  plan.push({p:30,area:'Expansion',title:'Test one new language',why:'Most channels publish in one language only, leaving large multilingual audiences untapped.',action:'Start cheap: add translated titles + subtitles for Hindi or your strongest regional language (see Language Opportunity tab).',payoff:'Opens an entirely new audience with zero new filming.'});
+  return plan.sort((a,b)=>b.p-a.p);
+}
+function vPlan(){
+  if(!CSV_STATE||CSV_STATE.source==='url'){
+    $('#appView').innerHTML=`
+    <div class="vhead"><h1>Your growth plan 🚀</h1><p>One ranked action list, synthesized from your real data — pulling together what the Audit, Best-Time, Retention and Language tools each see. ${CSV_STATE&&CSV_STATE.source==='url'?'The URL audit only has public data; load your Studio CSV for the full plan.':'Upload your Studio CSV to generate it.'}</p></div>
+    <div class="drop" id="planDrop">${svg('rocket',1.5)}<h3>Drop your Studio export (.csv)</h3><p>We turn your numbers into a prioritized to-do list — parsed locally, never uploaded</p></div>
+    <input type="file" id="planFile" accept=".csv" class="hide">
+    <div class="panel" style="margin-top:18px"><div class="panel-sub" style="margin:0">No CSV yet? You can still use every pre-publish tool (Optimize, A/B Test, Tags, Language) with no data at all.</div></div>`;
+    const dz=$('#planDrop'),fi=$('#planFile');
+    dz.onclick=()=>fi.click();
+    dz.ondragover=e=>{e.preventDefault();dz.classList.add('over');};dz.ondragleave=()=>dz.classList.remove('over');
+    dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files[0])loadCSV(e.dataTransfer.files[0],'plan');};
+    fi.onchange=e=>{if(e.target.files[0])loadCSV(e.target.files[0],'plan');};
+    return;
+  }
+  const {stats:s,vids}=CSV_STATE;
+  const plan=buildGrowthPlan(s,vids);
+  const top3=plan.slice(0,3);
+  $('#appView').innerHTML=`
+  <div class="vhead" style="display:flex;justify-content:space-between;align-items:flex-end"><div><h1>Your growth plan 🚀</h1><p>${plan.length} prioritized actions from ${s.count} videos · ranked by impact</p></div><button class="appbtn gho" onclick="resetCSV()">Different file</button></div>
+
+  <div class="panel" style="border-color:var(--mint)"><div class="panel-h">${svg('rocket')}<h3 style="color:var(--mint)">Do these 3 first</h3></div><div class="panel-sub">Your highest-impact moves this month.</div>
+  ${top3.map((p,i)=>`<div class="row"><div class="ic"><div style="width:26px;height:26px;border-radius:50%;background:var(--mint);color:#04231A;display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:700">${i+1}</div></div><div class="body"><b>${p.title}</b><span style="color:var(--txt-2)">${p.why}</span><span style="color:var(--mint);margin-top:4px">→ ${p.action}</span></div></div>`).join('')}</div>
+
+  <div class="panel"><div class="panel-h">${svg('check')}<h3>The full plan</h3></div><div class="panel-sub">Every opportunity we found, ranked. Tackle top-down.</div>
+  ${plan.map((p,i)=>`<div class="row"><div class="ic" style="width:auto;flex-shrink:0"><span class="pill ${p.p>=80?'decay':p.p>=50?'gem':'steady'}" style="font-size:10px;white-space:nowrap">${p.area}</span></div><div class="body" style="margin-left:4px"><b>${i+1}. ${p.title}</b><span style="color:var(--txt-2)">${p.why}</span><span style="color:var(--txt-3);margin-top:3px">${p.action}</span><span class="mint" style="font-size:12px;margin-top:3px">Payoff: ${p.payoff}</span></div></div>`).join('')}</div>
+
+  <div class="panel"><div class="panel-sub" style="margin:0">This plan synthesizes your CTR, retention, catalog age, title quality, upload timing and expansion options into one ranked list. For the blunt version see <b style="color:var(--mint);cursor:pointer" onclick="route('roast')">Roast</b>; for full data see <b style="color:var(--mint);cursor:pointer" onclick="route('audit')">Audit</b>.</div></div>`;
 }
 
 /* ---------- WORTH: WATCH-TIME → MONEY ---------- */
@@ -980,7 +1462,7 @@ function roastLines(s,vids){
   if(decay>s.count*0.5)L.push(['warn','Aging badly',`${decay} of your ${s.count} videos are losing steam. Your back catalog is aging like milk, not wine.`]);
   if(s.gems>0)L.push(['pass','Hidden gems',`You've got ${s.gems} video${s.gems>1?'s':''} with strong retention but low views — quietly excellent, criminally under-promoted. Re-share ${s.gems>1?'them':'it'} before making anything new.`]);
   const avgTitle=Math.round(vids.reduce((a,v)=>a+scoreTitle(v.title).score,0)/vids.length);
-  if(avgTitle<50)L.push(['fail','Your titles',`Average title score ${avgTitle}/100. Your titles read like filenames. "kubernetes-final-v2-REAL" energy.`]);
+  if(avgTitle<50)L.push(['fail','Your titles',`Average title score ${avgTitle}/100. Your titles read like file names — "video-final-v2-REAL" energy.`]);
   else if(avgTitle<70)L.push(['warn','Your titles',`Titles average ${avgTitle}/100 — serviceable, forgettable. Nobody ever rage-clicked a serviceable title.`]);
   else L.push(['pass','Your titles',`Titles average ${avgTitle}/100. Crisp. You think before you publish — rare.`]);
   return L;
@@ -1029,19 +1511,58 @@ function vCompare(){
 /* ---------- SETTINGS ---------- */
 function vSettings(){
   const key=localStorage.getItem('yt_api_key')||'';
+  const steps=[
+    ['Open the Google Cloud Console','It\'s free and works with any Google account. We\'ll open it in a new tab.','https://console.cloud.google.com/projectcreate','Open Console →'],
+    ['Create a project','Click <b>"New Project"</b>, give it any name (e.g. "my-yt-tools"), and click <b>Create</b>. Wait a few seconds for it to finish.',null,null],
+    ['Enable the YouTube Data API','Open the API library and click <b>Enable</b> on "YouTube Data API v3".','https://console.cloud.google.com/apis/library/youtube.googleapis.com','Open API page →'],
+    ['Create the key','Go to Credentials → <b>Create Credentials</b> → <b>API key</b>. Copy the key it shows you (starts with <span class="mono">AIza</span>).','https://console.cloud.google.com/apis/credentials','Open Credentials →'],
+    ['Paste it below','Drop the key in the box and hit <b>Test &amp; save</b>. We\'ll verify it works before saving.',null,null],
+  ];
   $('#appView').innerHTML=`
-  <div class="vhead"><h1>Settings</h1><p>Everything here is stored only in this browser's localStorage.</p></div>
-  <div class="panel"><div class="panel-h">${svg('key')}<h3>YouTube Data API key (optional)</h3></div>
-  <div class="panel-sub">Only needed to unlock live Compare mode. Get a free key from Google Cloud Console → YouTube Data API v3. Saved locally; sent only to Google from your browser, never to any EknathaLabs server.</div>
-  <input class="inp" id="kIn" placeholder="AIza..." value="${esc(key)}">
-  <div style="margin-top:14px;display:flex;gap:10px"><button class="appbtn" id="kSave">Save key</button>${key?'<button class="appbtn gho" id="kClear">Remove key</button>':''}</div>
-  <div id="kMsg" style="margin-top:10px;font-size:13px"></div></div>
-  <div class="panel"><div class="panel-h">${svg('shield')}<h3>Data &amp; privacy</h3></div>
-  <div class="panel-sub" style="margin:0">ytanalytics has no backend. CSVs parse with PapaParse in your browser; thumbnails grade on an in-memory canvas. Nothing is uploaded. Closing the tab clears everything except a key you choose to save.</div></div>`;
-  $('#kSave').onclick=()=>{const v=$('#kIn').value.trim();const m=$('#kMsg');
-    if(v){localStorage.setItem('yt_api_key',v);m.innerHTML='<span class="mint">Saved. Live mode unlocked in Compare.</span>';setTimeout(()=>route('settings'),800);}
-    else m.innerHTML='<span class="rose">Enter a key first.</span>';};
-  const c=$('#kClear');if(c)c.onclick=()=>{localStorage.removeItem('yt_api_key');route('settings');};
+  <div class="vhead"><h1>Settings</h1><p>Add a free YouTube API key to unlock channel lookup by URL and live Compare. Everything stays in this browser.</p></div>
+
+  ${key?`<div class="panel" style="border-color:var(--mint)"><div class="panel-h">${svg('check')}<h3 style="color:var(--mint)">Key active — live features unlocked</h3></div>
+  <div class="panel-sub">Audit by URL and Compare are ready to use. Your key is stored only in this browser.</div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="mono" style="background:var(--bg);border:1px solid var(--line);padding:8px 12px;border-radius:8px;color:var(--txt-2)">${esc(key.slice(0,8))}••••••••${esc(key.slice(-4))}</span>
+  <button class="appbtn gho" id="kTest">Re-test</button><button class="appbtn gho" id="kClear">Remove key</button></div>
+  <div id="kMsg" style="margin-top:10px;font-size:13px"></div></div>`:''}
+
+  <div class="panel"><div class="panel-h">${svg('key')}<h3>${key?'Replace your key':'Get your free API key — 2 minutes'}</h3></div>
+  <div class="panel-sub">The YouTube Data API is free for normal use (10,000 units/day — that's hundreds of channel audits). No billing setup required.</div>
+  <div id="keySteps">${steps.map((s,i)=>`
+    <div class="row"><div class="ic"><div style="width:24px;height:24px;border-radius:50%;background:var(--surf-2);border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mint)">${i+1}</div></div>
+    <div class="body"><b>${s[0]}</b><span>${s[1]}</span>${s[2]?`<a href="${s[2]}" target="_blank" rel="noopener" class="appbtn gho" style="margin-top:9px;display:inline-flex;font-size:13px;padding:7px 13px">${s[3]} ${svg('link',1.8)}</a>`:''}</div></div>`).join('')}</div>
+  <div style="margin-top:18px;background:var(--bg);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:16px">
+    <label class="fld">Paste your API key</label>
+    <div style="display:flex;gap:10px"><input class="inp" id="kIn" placeholder="AIzaSy..." value="${esc(key)}" style="font-family:var(--mono)"><button class="appbtn" id="kSave" style="white-space:nowrap">Test &amp; save</button></div>
+    <div id="kMsg2" style="margin-top:10px;font-size:13px"></div>
+  </div></div>
+
+  <div class="panel"><div class="panel-h">${svg('shield')}<h3>Is this safe?</h3></div>
+  <div class="panel-sub" style="margin:0">Yes. The key is stored only in your browser's local storage and is sent <b>only to Google's API</b>, directly from your browser — never to any EknathaLabs server (there is no server). For extra safety you can restrict the key in Google Console to the YouTube Data API and to your domain. Remove it any time with one click.</div></div>`;
+
+  const testAndSave=async(val,msgEl,onDone)=>{
+    const v=(val||'').trim();const m=$(msgEl);
+    if(!v){m.innerHTML='<span class="rose">Enter a key first.</span>';return;}
+    if(!/^AIza[\w-]{30,}$/.test(v)){m.innerHTML='<span class="amber">That doesn\'t look like a Google API key (they start with "AIza"). Double-check you copied the whole thing.</span>';return;}
+    m.innerHTML='<span class="muted">Testing key against the YouTube API…</span>';
+    try{
+      // cheap validation call: look up a known channel id
+      const r=await fetch('https://www.googleapis.com/youtube/v3/channels?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key='+encodeURIComponent(v));
+      const d=await r.json();
+      if(r.ok&&!d.error){localStorage.setItem('yt_api_key',v);m.innerHTML='<span class="mint">✓ Key works and is saved. Audit by URL is unlocked.</span>';setTimeout(()=>{route(onDone||'settings');},1100);}
+      else{
+        const reason=d.error?.message||'';
+        if(/API key not valid/i.test(reason))m.innerHTML='<span class="rose">Key rejected — it\'s not valid yet. If you just created it, wait 1-2 minutes and retry.</span>';
+        else if(/has not been used|disabled|not enabled/i.test(reason))m.innerHTML='<span class="rose">The YouTube Data API isn\'t enabled for this key yet. Do step 3 (Enable the API), wait a minute, and retry.</span>';
+        else m.innerHTML='<span class="rose">'+esc(reason||'Key test failed. Check the steps above.')+'</span>';
+      }
+    }catch(e){m.innerHTML='<span class="rose">Network error testing the key. Check your connection and retry.</span>';}
+  };
+  $('#kSave').onclick=()=>testAndSave($('#kIn').value,'#kMsg2','urlaudit');
+  $('#kIn').addEventListener('keydown',e=>{if(e.key==='Enter')testAndSave($('#kIn').value,'#kMsg2','urlaudit');});
+  const ct=$('#kTest');if(ct)ct.onclick=()=>testAndSave(key,'#kMsg');
+  const cc=$('#kClear');if(cc)cc.onclick=()=>{localStorage.removeItem('yt_api_key');route('settings');};
 }
 
 /* ============ BOOT ============ */
