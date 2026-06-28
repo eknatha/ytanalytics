@@ -33,17 +33,27 @@ We're upfront about what we *don't* do: no historical time-series of arbitrary c
 - **Thumbnail auditor** — contrast, detail density and mobile readability graded on a canvas. Nothing leaves the page.
 - **Hook builder** — scaffolds the first 15 seconds to beat the 0:18 retention cliff.
 
+**Channel Optimization (no data)**
+- A scored 12-point checklist of channel fundamentals (branding, cadence, playlists, SEO hygiene, end screens…). Progress saved locally with a live completion score.
+
+**Money Calculator (no data)**
+- Estimates ad revenue from monthly views, niche RPM, audience geography and monetized-view share. Shows low/likely/high monthly and yearly ranges plus effective RPM. RPM figures are realistic post-cut values.
+
 **Research (no key)**
 - **Tag generator** — niche co-occurrence (k8s → kubectl, helm…) plus proven modifiers.
 - **Title idea spinner** — high-scoring templates, auto-graded.
 
-**Audit (bring your own Studio CSV)**
-- Niche-benchmarked CTR, retention and average view duration.
-- Velocity-decay tagging (aging well / steady / decaying).
-- Hidden-gem detection — strong retention or CTR but low views, your best re-promotion targets.
+**Top Creators / By Niche (no key)**
+- Most-subscribed channels worldwide and category leaders, with a strong cloud/DevOps list. Bundled offline snapshot with a visible "as of" date — not a live feed.
+
+**Audit by CSV (bring your own Studio export)**
+- Niche-benchmarked CTR, retention and average view duration; velocity-decay tagging; hidden-gem detection. The only way to get real CTR/retention, because the owner exports it.
+
+**Audit by URL (needs your API key)**
+- Paste any channel URL, @handle or ID → real public data: subscribers, recent video performance, upload cadence, and title scoring on actual titles. CTR/retention are deliberately absent here — they're private and no public method exposes them.
 
 **Compare (optional live mode)**
-- Public channel lookup via the YouTube Data API. Requires *your own* API key (stored locally, your quota). Off by default — no key is ever bundled.
+- Public channel lookup via the YouTube Data API. Requires *your own* key (stored locally, your quota). Off by default — no key is ever bundled.
 
 ---
 
